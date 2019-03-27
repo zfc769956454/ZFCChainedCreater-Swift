@@ -168,6 +168,8 @@ public struct ZFC_CollectionViewChainedInvokeConfig {
     public var sectionHeaderClassArray: [UICollectionReusableView.Type]?
     public var sectionFooterClassArray: [UICollectionReusableView.Type]?
     
+    public init() {}
+    
 }
 
 public class ZFC_CollectionViewChainedInvoke: NSObject{

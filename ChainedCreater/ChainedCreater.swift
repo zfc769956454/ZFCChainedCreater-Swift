@@ -21,9 +21,9 @@ public protocol ChainedCreaterCompatible {
     
     associatedtype T
 
-    public static var cc: T.Type { get }
+    static var cc: T.Type { get }
     
-    public var cc: T { get }
+    var cc: T { get }
     
 }
 

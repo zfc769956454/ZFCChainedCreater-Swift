@@ -191,6 +191,8 @@ public struct ZFC_TableViewChainedInvokeConfig {
     public var cellClassArray: [UITableViewCell.Type]?
     public var sectionHeaderClassArray: [UITableViewHeaderFooterView.Type]?
     public var sectionFooterClassArray: [UITableViewHeaderFooterView.Type]?
+    
+    public init() {}
 
 }
 
