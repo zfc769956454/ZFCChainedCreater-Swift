@@ -21,9 +21,9 @@ public protocol ChainedCreaterCompatible {
     
     associatedtype T
 
-    static var cc: T.Type { get }
+    public static var cc: T.Type { get }
     
-    var cc: T { get }
+    public var cc: T { get }
     
 }
 
@@ -34,7 +34,7 @@ public extension ChainedCreaterCompatible {
         return ChainedCreater<Self>.self
     }
     
-    var cc: ChainedCreater<Self> {
+    public var cc: ChainedCreater<Self> {
         return ChainedCreater(self)
     }
     
