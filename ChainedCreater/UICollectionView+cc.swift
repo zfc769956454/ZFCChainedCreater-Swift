@@ -178,12 +178,12 @@ public class ZFC_CollectionViewChainedInvoke: NSObject{
     
     private var numberOfSectionsInCollectionViewHandle: ((_ collectionView: UICollectionView) -> Int)?
     private var numberOfItemsInSectionHandle: ((_ collectionView: UICollectionView, _ section: Int) -> Int)?
-    private var cellForItemAtIndexPathHandle: ((_ collectionView: UICollectionView, _ cellArray: [UICollectionViewCell], _ indexPath: IndexPath) -> UICollectionViewCell)?
+    private var cellForItemAtIndexPathHandle: ((_ collectionView: UICollectionView, _ cellArray: [UICollectionViewCell.Type], _ indexPath: IndexPath) -> UICollectionViewCell)?
     private var sizeForItemAtIndexPathHandle: ((_ collectionView: UICollectionView, _ indexPath: IndexPath) -> CGSize)?
     private var referenceSizeForHeaderInSectionHandle: ((_ collectionView: UICollectionView, _ section: Int) -> CGSize)?
-    private var collectionElementKindSectionHeaderHandle: ((_ collectionView: UICollectionView, _ sectionHeaderView: [UICollectionReusableView],_ section: Int) -> UICollectionReusableView)?
+    private var collectionElementKindSectionHeaderHandle: ((_ collectionView: UICollectionView, _ sectionHeaderView: [UICollectionReusableView.Type],_ iindexPath: IndexPath) -> UICollectionReusableView)?
     private var referenceSizeForFooterInSectionHandle: ((_ collectionView: UICollectionView, _ section: Int) -> CGSize)?
-    private var collectionElementKindSectionFooterHandle: ((_ collectionView: UICollectionView, _ sectionFooterView: [UICollectionReusableView],_ section: Int) -> UICollectionReusableView)?
+    private var collectionElementKindSectionFooterHandle: ((_ collectionView: UICollectionView, _ sectionFooterView: [UICollectionReusableView.Type],_ indexPath: IndexPath) -> UICollectionReusableView)?
     private var didSelectItemAtIndexPathHandle: ((_ collectionView: UICollectionView, _ indexPath: IndexPath) -> ())?
     
     
@@ -239,7 +239,7 @@ public class ZFC_CollectionViewChainedInvoke: NSObject{
     }
     
     
-    public var zfc_cellForItemAtIndexPath: (_ cellForItemAtIndexPathHandle: @escaping(_ collectionView: UICollectionView, _ cellArray: [UICollectionViewCell] , _ indexPath: IndexPath) -> UICollectionViewCell ) -> ZFC_CollectionViewChainedInvoke {
+    public var zfc_cellForItemAtIndexPath: (_ cellForItemAtIndexPathHandle: @escaping(_ collectionView: UICollectionView, _ cellArray: [UICollectionViewCell.Type] , _ indexPath: IndexPath) -> UICollectionViewCell ) -> ZFC_CollectionViewChainedInvoke {
         
         return { cellForItemAtIndexPathHandle in
             
@@ -272,7 +272,7 @@ public class ZFC_CollectionViewChainedInvoke: NSObject{
         }
     }
     
-    public var zfc_collectionElementKindSectionHeader: (_ collectionElementKindSectionHeaderHandle: @escaping(_ collectionView: UICollectionView, _ headerView: [UICollectionReusableView],_ section: Int) -> UICollectionReusableView ) -> ZFC_CollectionViewChainedInvoke {
+    public var zfc_collectionElementKindSectionHeader: (_ collectionElementKindSectionHeaderHandle: @escaping(_ collectionView: UICollectionView, _ headerView: [UICollectionReusableView.Type],_ indexPath: IndexPath) -> UICollectionReusableView ) -> ZFC_CollectionViewChainedInvoke {
         
         assert((self.invokeConfig?.sectionHeaderClassArray ?? []).count > 0, "请传入一个段头的类对象")
         
@@ -296,7 +296,7 @@ public class ZFC_CollectionViewChainedInvoke: NSObject{
         }
     }
     
-    public var zfc_collectionElementKindSectionFooter: (_ collectionElementKindSectionFooterHandle: @escaping(_ collectionView: UICollectionView, _ footerView: [UICollectionReusableView],_ section: Int) -> UICollectionReusableView ) -> ZFC_CollectionViewChainedInvoke {
+    public var zfc_collectionElementKindSectionFooter: (_ collectionElementKindSectionFooterHandle: @escaping(_ collectionView: UICollectionView, _ footerView: [UICollectionReusableView.Type],_ indexPath: IndexPath) -> UICollectionReusableView ) -> ZFC_CollectionViewChainedInvoke {
         
         assert((self.invokeConfig?.sectionFooterClassArray ?? []).count > 0, "请传入一个段尾的类对象")
         
@@ -337,17 +337,13 @@ extension ZFC_CollectionViewChainedInvoke: UICollectionViewDelegate,UICollection
     
    
     public func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        var cellArray = [UICollectionViewCell]()
+       
         guard let invokeConfig = invokeConfig,
             let cellClassArray = invokeConfig.cellClassArray else {
                 return UICollectionViewCell()
         }
-        for cellClass in cellClassArray {
-             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "\(cellClass)", for: indexPath)
-             cellArray.append(cell)
-        }
-        
-        let cell = cellForItemAtIndexPathHandle?(collectionView, cellArray, indexPath) ?? UICollectionViewCell()
+       
+        let cell = cellForItemAtIndexPathHandle?(collectionView, cellClassArray, indexPath) ?? UICollectionViewCell()
         
         return cell
     }
@@ -367,32 +363,23 @@ extension ZFC_CollectionViewChainedInvoke: UICollectionViewDelegate,UICollection
     public func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
         
         if kind == UICollectionElementKindSectionHeader {
-            
-            var sectionHeaderViewArray = [UICollectionReusableView]()
+
             guard let invokeConfig = invokeConfig ,
                 let sectionHeaderClassArray = invokeConfig.sectionHeaderClassArray else {
                     return UICollectionReusableView()
             }
-            for sectionHeaderClass in sectionHeaderClassArray {
-                 let sectionHeaderView = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionElementKindSectionHeader, withReuseIdentifier: "\(sectionHeaderClass)", for: indexPath)
-                 sectionHeaderViewArray.append(sectionHeaderView)
-            }
-            let sectionHeaderView = collectionElementKindSectionHeaderHandle?(collectionView, sectionHeaderViewArray, indexPath.section) ?? UICollectionReusableView()
+          
+            let sectionHeaderView = collectionElementKindSectionHeaderHandle?(collectionView, sectionHeaderClassArray, indexPath) ?? UICollectionReusableView()
             
             return sectionHeaderView
         }
         
-        var sectionFooterViewArray = [UICollectionReusableView]()
         guard let invokeConfig = invokeConfig ,
             let sectionFootererClassArray = invokeConfig.sectionFooterClassArray else {
                 return UICollectionReusableView()
         }
-        for sectionFooterClass in sectionFootererClassArray {
-            let sectionHeaderView = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionElementKindSectionFooter, withReuseIdentifier: "\(sectionFooterClass)", for: indexPath)
-            sectionFooterViewArray.append(sectionHeaderView)
-        }
         
-        let sectionFooterView = collectionElementKindSectionFooterHandle?(collectionView, sectionFooterViewArray, indexPath.section) ?? UICollectionReusableView()
+        let sectionFooterView = collectionElementKindSectionFooterHandle?(collectionView, sectionFootererClassArray, indexPath) ?? UICollectionReusableView()
         return sectionFooterView
     }
     

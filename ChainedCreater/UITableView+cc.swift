@@ -202,12 +202,12 @@ public class ZFC_TableViewChainedInvoke: NSObject{
 
     private var numberOfSectionsInTableViewHandle: ((_ tableView: UITableView) -> Int)?
     private var numberOfRowsInSectionHandle: ((_ tableView: UITableView, _ section: Int) -> Int)?
-    private var cellForRowAtIndexPathHandle: ((_ tableView: UITableView, _ cellArray: [UITableViewCell], _ indexPath: IndexPath) -> UITableViewCell)?
+    private var cellForRowAtIndexPathHandle: ((_ tableView: UITableView, _ cellArray: [UITableViewCell.Type], _ indexPath: IndexPath) -> UITableViewCell)?
     private var heightForRowAtIndexPathHandle: ((_ tableView: UITableView, _ indexPath: IndexPath) -> CGFloat)?
     private var heightForHeaderInSectionHandle: ((_ tableView: UITableView, _ section: Int) -> CGFloat)?
-    private var viewForHeaderInSectionHandle: ((_ tableView: UITableView, _ headerView: [UITableViewHeaderFooterView],_ section: Int) -> UITableViewHeaderFooterView)?
+    private var viewForHeaderInSectionHandle: ((_ tableView: UITableView, _ headerView: [UITableViewHeaderFooterView.Type],_ section: Int) -> UITableViewHeaderFooterView)?
     private var heightForFooterInSectionHandle: ((_ tableView: UITableView, _ section: Int) -> CGFloat)?
-    private var viewForFooterInSectionHandle: ((_ tableView: UITableView, _ footerView: [UITableViewHeaderFooterView],_ section: Int) -> UITableViewHeaderFooterView)?
+    private var viewForFooterInSectionHandle: ((_ tableView: UITableView, _ footerView: [UITableViewHeaderFooterView.Type],_ section: Int) -> UITableViewHeaderFooterView)?
     private var deleteCellWithIndexPathHandle: ((_ tableView: UITableView, _ indexPath: IndexPath) -> ())?
     private var didSelectRowAtIndexPathHandle: ((_ tableView: UITableView, _ indexPath: IndexPath) -> ())?
     
@@ -264,7 +264,7 @@ public class ZFC_TableViewChainedInvoke: NSObject{
     }
     
     
-    public var zfc_cellForRowAtIndexPath: (_ cellForRowAtIndexPathHandle: @escaping(_ tableView: UITableView, _ cellArray: [UITableViewCell] , _ indexPath: IndexPath) -> UITableViewCell ) -> ZFC_TableViewChainedInvoke {
+    public var zfc_cellForRowAtIndexPath: (_ cellForRowAtIndexPathHandle: @escaping(_ tableView: UITableView, _ cellArray: [UITableViewCell.Type] , _ indexPath: IndexPath) -> UITableViewCell ) -> ZFC_TableViewChainedInvoke {
         
         return { cellForRowAtIndexPathHandle in
             
@@ -296,7 +296,7 @@ public class ZFC_TableViewChainedInvoke: NSObject{
         }
     }
     
-    public var zfc_viewForHeaderInSection: (_ viewForHeaderInSectionHandle: @escaping(_ tableView: UITableView, _ headerView: [UITableViewHeaderFooterView],_ section: Int) -> UITableViewHeaderFooterView ) -> ZFC_TableViewChainedInvoke {
+    public var zfc_viewForHeaderInSection: (_ viewForHeaderInSectionHandle: @escaping(_ tableView: UITableView, _ headerView: [UITableViewHeaderFooterView.Type],_ section: Int) -> UITableViewHeaderFooterView ) -> ZFC_TableViewChainedInvoke {
         
         assert((self.invokeConfig?.sectionHeaderClassArray ?? []).count > 0, "请传入一个段头的类对象")
         
@@ -320,7 +320,7 @@ public class ZFC_TableViewChainedInvoke: NSObject{
         }
     }
     
-    public var zfc_viewForFooterInSection: (_ viewForFooterInSectionHandle: @escaping(_ tableView: UITableView, _ footerView: [UITableViewHeaderFooterView],_ section: Int) -> UITableViewHeaderFooterView ) -> ZFC_TableViewChainedInvoke {
+    public var zfc_viewForFooterInSection: (_ viewForFooterInSectionHandle: @escaping(_ tableView: UITableView, _ footerView: [UITableViewHeaderFooterView.Type],_ section: Int) -> UITableViewHeaderFooterView ) -> ZFC_TableViewChainedInvoke {
     
         assert((self.invokeConfig?.sectionFooterClassArray ?? []).count > 0, "请传入一个段尾的类对象")
         
@@ -380,18 +380,12 @@ extension ZFC_TableViewChainedInvoke: UITableViewDataSource,UITableViewDelegate 
     
     public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        var cellArray = [UITableViewCell]()
         guard let invokeConfig = invokeConfig,
             let cellClassArray = invokeConfig.cellClassArray else {
             return UITableViewCell()
         }
-        for cellClass in cellClassArray {
-            if let cell = tableView.dequeueReusableCell(withIdentifier: "\(cellClass)") {
-                cellArray.append(cell)
-            }
-        }
-
-        let cell = cellForRowAtIndexPathHandle?(tableView, cellArray, indexPath) ?? UITableViewCell()
+        
+        let cell = cellForRowAtIndexPathHandle?(tableView, cellClassArray, indexPath) ?? UITableViewCell()
 
         return cell
     }
@@ -404,18 +398,12 @@ extension ZFC_TableViewChainedInvoke: UITableViewDataSource,UITableViewDelegate 
     
     public func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         
-        var sectionHeaderViewArray = [UITableViewHeaderFooterView]()
         guard let invokeConfig = invokeConfig ,
             let sectionHeaderClassArray = invokeConfig.sectionHeaderClassArray else {
                 return UITableViewHeaderFooterView()
         }
-        for sectionHeaderClass in sectionHeaderClassArray {
-            if let sectionHeaderView = tableView.dequeueReusableHeaderFooterView(withIdentifier: "\(sectionHeaderClass)") {
-                sectionHeaderViewArray.append(sectionHeaderView)
-            }
-        }
-    
-        let sectionHeaderView = viewForHeaderInSectionHandle?(tableView,sectionHeaderViewArray,section)
+       
+        let sectionHeaderView = viewForHeaderInSectionHandle?(tableView,sectionHeaderClassArray,section)
         
         return sectionHeaderView
     }
@@ -428,18 +416,12 @@ extension ZFC_TableViewChainedInvoke: UITableViewDataSource,UITableViewDelegate 
     
     public func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
         
-        var sectionFooterViewArray = [UITableViewHeaderFooterView]()
         guard let invokeConfig = invokeConfig ,
             let sectionFooterClassArray = invokeConfig.sectionFooterClassArray else {
                 return UITableViewHeaderFooterView()
         }
-        for sectionFooterClass in sectionFooterClassArray {
-            if let sectionFooterView = tableView.dequeueReusableHeaderFooterView(withIdentifier: "\(sectionFooterClass)") {
-                sectionFooterViewArray.append(sectionFooterView)
-            }
-        }
         
-        let sectionFooterView = viewForFooterInSectionHandle?(tableView, sectionFooterViewArray,section)
+        let sectionFooterView = viewForFooterInSectionHandle?(tableView, sectionFooterClassArray,section)
         return sectionFooterView
     }
     
