@@ -13,164 +13,130 @@ public final class ZFC_TableViewChainedCreater {
     
     public var chainedTableView: UITableView = UITableView(frame: .zero, style: .plain)
     
-    public var frameAndStyle: (_ frame: CGRect, _ style: UITableViewStyle) -> ZFC_TableViewChainedCreater {
-        return { (frame, style) in
+    @discardableResult
+    public func frameAndStyle(_ frame: CGRect, _ style: UITableViewStyle) -> ZFC_TableViewChainedCreater {
         
-            self.chainedTableView = UITableView(frame: frame, style: style)
-            
-            return self
-        }
+        self.chainedTableView = UITableView(frame: frame, style: style)
+        
+        return self
+        
     }
     
-    public var addIntoView: (_ superView: UIView) -> ZFC_TableViewChainedCreater {
-        return { superView in
-            
-            superView.addSubview(self.chainedTableView)
-            
-            return self
-            
-        }
+    @discardableResult
+    public func addIntoView(_ superView: UIView) -> ZFC_TableViewChainedCreater {
+        superView.addSubview(self.chainedTableView)
+        
+        return self
     }
     
- 
-    public var backgroundColor: (_ backgroudColor: UIColor) -> ZFC_TableViewChainedCreater {
+    @discardableResult
+    public func backgroundColor(_ backgroudColor: UIColor) -> ZFC_TableViewChainedCreater {
         
-        return { backgroudColor in
-            
-            self.chainedTableView.backgroundColor = backgroudColor
-            
-            return self
-            
-        }
+        self.chainedTableView.backgroundColor = backgroudColor
+        
+        return self
     }
     
-    public var tag: (_ tag: Int) -> ZFC_TableViewChainedCreater {
+    @discardableResult
+    public func tag(_ tag: Int) -> ZFC_TableViewChainedCreater {
         
-        return { tag in
-            
-            self.chainedTableView.tag = tag
-            
-            return self
-        }
+        self.chainedTableView.tag = tag
+        
+        return self
     }
     
     
-    public var separatorStyleAndColor: (_ separatorStyle: UITableViewCellSeparatorStyle, _ separatorColor: UIColor) -> ZFC_TableViewChainedCreater {
+    @discardableResult
+    public func separatorStyleAndColor(_ separatorStyle: UITableViewCellSeparatorStyle, _ separatorColor: UIColor) -> ZFC_TableViewChainedCreater {
         
-        return { (separatorStyle, separatorColor) in
-            
-            self.chainedTableView.separatorStyle = separatorStyle
-            if separatorStyle != UITableViewCellSeparatorStyle.none {
-                self.chainedTableView.separatorColor = separatorColor
-            }
-            
-            return self
-            
+        self.chainedTableView.separatorStyle = separatorStyle
+        if separatorStyle != UITableViewCellSeparatorStyle.none {
+            self.chainedTableView.separatorColor = separatorColor
         }
+        
+        return self
     }
   
-    public var separatorInset: (_ separatorInset: UIEdgeInsets) -> ZFC_TableViewChainedCreater {
+    @discardableResult
+    public func separatorInset(_ separatorInset: UIEdgeInsets) -> ZFC_TableViewChainedCreater {
         
-        return { separatorInset in
-            
-            self.chainedTableView.separatorInset = separatorInset
-            
-            return self
-        }
+        self.chainedTableView.separatorInset = separatorInset
+        
+        return self
     }
     
-    public var tableHeaderView: (_ tableHeaderView: UIView) -> ZFC_TableViewChainedCreater {
+    @discardableResult
+    public func tableHeaderView(_ tableHeaderView: UIView) -> ZFC_TableViewChainedCreater {
         
-        return { tableHeaderView in
-            
-            self.chainedTableView.tableHeaderView = tableHeaderView
-            
-            return self
-        }
+        self.chainedTableView.tableHeaderView = tableHeaderView
+        
+        return self
     }
     
-    public var tableFooterView: (_ tableFooterView: UIView) -> ZFC_TableViewChainedCreater {
+    @discardableResult
+    public func tableFooterView(_ tableFooterView: UIView) -> ZFC_TableViewChainedCreater {
         
-        return { tableFooterView in
-            
-            self.chainedTableView.tableFooterView = tableFooterView
-            
-            return self
-        }
+        self.chainedTableView.tableFooterView = tableFooterView
+        
+        return self
     }
     
-    public var showsVerticalScrollIndicator: (_ showsVerticalScrollIndicator: Bool) -> ZFC_TableViewChainedCreater {
+    @discardableResult
+    public func showsVerticalScrollIndicator(_ showsVerticalScrollIndicator: Bool) -> ZFC_TableViewChainedCreater {
         
-        return { showsVerticalScrollIndicator in
-            
-            self.chainedTableView.showsVerticalScrollIndicator = showsVerticalScrollIndicator
-            
-            return self
-        }
+        self.chainedTableView.showsVerticalScrollIndicator = showsVerticalScrollIndicator
+        
+        return self
     }
     
-    public var showsHorizontalScrollIndicator: (_ showsHorizontalScrollIndicator: Bool) -> ZFC_TableViewChainedCreater {
+    @discardableResult
+    public func showsHorizontalScrollIndicator(_ showsHorizontalScrollIndicator: Bool) -> ZFC_TableViewChainedCreater {
         
-        return { showsHorizontalScrollIndicator in
-            
-            self.chainedTableView.showsHorizontalScrollIndicator = showsHorizontalScrollIndicator
-            
-            return self
-        }
+        self.chainedTableView.showsHorizontalScrollIndicator = showsHorizontalScrollIndicator
+        
+        return self
     }
     
-    public var rowHeight: (_ rowHeight: CGFloat) -> ZFC_TableViewChainedCreater {
+    @discardableResult
+    public func rowHeight(_ rowHeight: CGFloat) -> ZFC_TableViewChainedCreater {
         
-        return { rowHeight in
-            
-            self.chainedTableView.rowHeight = rowHeight
-            
-            return self
-        }
+        self.chainedTableView.rowHeight = rowHeight
+        
+        return self
     }
     
-    
-    public var estimatedRowHeight: (_ estimatedRowHeight: CGFloat) -> ZFC_TableViewChainedCreater {
+    @discardableResult
+    public func estimatedRowHeight(_ estimatedRowHeight: CGFloat) -> ZFC_TableViewChainedCreater {
         
-        return { estimatedRowHeight in
-            
-            self.chainedTableView.estimatedRowHeight = estimatedRowHeight
-            
-            return self
-        }
+        self.chainedTableView.estimatedRowHeight = estimatedRowHeight
+        
+        return self
+        
     }
     
-    
-    public var sectionHeaderHeight: (_ sectionHeaderHeight: CGFloat) -> ZFC_TableViewChainedCreater {
+    @discardableResult
+    public func sectionHeaderHeight(_ sectionHeaderHeight: CGFloat) -> ZFC_TableViewChainedCreater {
         
-        return { sectionHeaderHeight in
-            
-            self.chainedTableView.sectionHeaderHeight = sectionHeaderHeight
-            
-            return self
-        }
+        self.chainedTableView.sectionHeaderHeight = sectionHeaderHeight
+        
+        return self
     }
     
-    public var sectionFooterHeight: (_ sectionFooterHeight: CGFloat) -> ZFC_TableViewChainedCreater {
+    @discardableResult
+    public func sectionFooterHeight(_ sectionFooterHeight: CGFloat) -> ZFC_TableViewChainedCreater {
         
-        return { sectionFooterHeight in
-            
-            self.chainedTableView.sectionFooterHeight = sectionFooterHeight
-            
-            return self
-        }
+        self.chainedTableView.sectionFooterHeight = sectionFooterHeight
+        
+        return self
     }
-    
-    public func end() {}
-    
-    
+
 }
 
 
 extension ChainedCreater where Base: UITableView {
     
     @discardableResult
-    public static func zfc_tableViewChainedCreater(chainedCreaterBlock: @escaping(_ creater: ZFC_TableViewChainedCreater) -> ()) -> UITableView {
+    public static func zfc_tableViewChainedCreater(_ chainedCreaterBlock: (_ creater: ZFC_TableViewChainedCreater) -> ()) -> UITableView {
         
         let chainedCreater = ZFC_TableViewChainedCreater()
         chainedCreaterBlock(chainedCreater)
@@ -211,148 +177,123 @@ public class ZFC_TableViewChainedInvoke: NSObject{
     private var deleteCellWithIndexPathHandle: ((_ tableView: UITableView, _ indexPath: IndexPath) -> ())?
     private var didSelectRowAtIndexPathHandle: ((_ tableView: UITableView, _ indexPath: IndexPath) -> ())?
     
-    
-    public var zfc_tableViewConfigure: (_ invokeConfig: ZFC_TableViewChainedInvokeConfig) -> ZFC_TableViewChainedInvoke {
+    @discardableResult
+    public func zfc_tableViewConfigure(_ invokeConfig: ZFC_TableViewChainedInvokeConfig) -> ZFC_TableViewChainedInvoke {
         
-        return { invokeConfig in
-            
-            self.invokeConfig = invokeConfig
-            guard let cellClassArray = invokeConfig.cellClassArray else {
-                assert(true, "请传入一个cell的类对象")
-                return self
+        self.invokeConfig = invokeConfig
+        guard let cellClassArray = invokeConfig.cellClassArray else {
+            assert(true, "请传入一个cell的类对象")
+            return self
+        }
+        for cellClass in cellClassArray {
+            invokeConfig.tableView?.register(cellClass, forCellReuseIdentifier: "\(cellClass)")
+        }
+        
+        if let sectionHeaderClassArray = invokeConfig.sectionHeaderClassArray {
+            for sectionHeaderClass in sectionHeaderClassArray {
+                invokeConfig.tableView?.register(sectionHeaderClass, forHeaderFooterViewReuseIdentifier: "\(sectionHeaderClass)")
             }
-            for cellClass in cellClassArray {
-                invokeConfig.tableView?.register(cellClass, forCellReuseIdentifier: "\(cellClass)")
+        }
+        
+        if let sectionFooterClassArray = invokeConfig.sectionFooterClassArray {
+            for sectionFooterClass in sectionFooterClassArray {
+                invokeConfig.tableView?.register(sectionFooterClass, forHeaderFooterViewReuseIdentifier: "\(sectionFooterClass)")
             }
-            
-            if let sectionHeaderClassArray = invokeConfig.sectionHeaderClassArray {
-                for sectionHeaderClass in sectionHeaderClassArray {
-                     invokeConfig.tableView?.register(sectionHeaderClass, forHeaderFooterViewReuseIdentifier: "\(sectionHeaderClass)")
-                }
-            }
-            
-            if let sectionFooterClassArray = invokeConfig.sectionFooterClassArray {
-                for sectionFooterClass in sectionFooterClassArray {
-                     invokeConfig.tableView?.register(sectionFooterClass, forHeaderFooterViewReuseIdentifier: "\(sectionFooterClass)")
-                }
-            }
-            invokeConfig.tableView?.delegate = self
-            invokeConfig.tableView?.dataSource = self
-            
-            return self
         }
-    }
-    
-    public var zfc_numberOfSectionsInTableView: (_ numberOfSectionsInTableViewHandle: @escaping(_ tableView: UITableView) -> Int ) -> ZFC_TableViewChainedInvoke {
+        invokeConfig.tableView?.delegate = self
+        invokeConfig.tableView?.dataSource = self
         
-        return { numberOfSectionsInTableViewHandle in
-            
-            self.numberOfSectionsInTableViewHandle = numberOfSectionsInTableViewHandle
-            
-            return self
-        }
-    }
-    
-    public var zfc_numberOfRowsInSection: (_ numberOfRowsInSectionHandle: @escaping(_ tableView: UITableView, _ section: Int) -> Int ) -> ZFC_TableViewChainedInvoke {
+        return self
         
-        return { numberOfRowsInSectionHandle in
-            
-            self.numberOfRowsInSectionHandle = numberOfRowsInSectionHandle
-            
-            return self
-        }
     }
     
-    
-    public var zfc_cellForRowAtIndexPath: (_ cellForRowAtIndexPathHandle: @escaping(_ tableView: UITableView, _ cellArray: [UITableViewCell.Type] , _ indexPath: IndexPath) -> UITableViewCell ) -> ZFC_TableViewChainedInvoke {
+    @discardableResult
+    public func zfc_numberOfSectionsInTableView(_ numberOfSectionsInTableViewHandle: @escaping(_ tableView: UITableView) -> Int ) -> ZFC_TableViewChainedInvoke {
         
-        return { cellForRowAtIndexPathHandle in
-            
-            self.cellForRowAtIndexPathHandle = cellForRowAtIndexPathHandle
-            
-            return self
-        }
-    }
-    
-    public var zfc_heightForRowAtIndexPath: (_ heightForRowAtIndexPathHandle: @escaping(_ tableView: UITableView, _ indexPath: IndexPath) -> CGFloat ) -> ZFC_TableViewChainedInvoke {
+        self.numberOfSectionsInTableViewHandle = numberOfSectionsInTableViewHandle
         
-        return { heightForRowAtIndexPathHandle in
-            
-            self.heightForRowAtIndexPathHandle = heightForRowAtIndexPathHandle
-            
-            return self
-        }
+        return self
     }
     
-    public var zfc_heightForHeaderInSection: (_ heightForHeaderInSectionHandle: @escaping(_ tableView: UITableView, _ section: Int) -> CGFloat ) -> ZFC_TableViewChainedInvoke {
+    @discardableResult
+    public func zfc_numberOfRowsInSection(_ numberOfRowsInSectionHandle: @escaping(_ tableView: UITableView, _ section: Int) -> Int ) -> ZFC_TableViewChainedInvoke {
+        
+        self.numberOfRowsInSectionHandle = numberOfRowsInSectionHandle
+        
+        return self
+    }
+    
+    @discardableResult
+    public func zfc_cellForRowAtIndexPath(_ cellForRowAtIndexPathHandle: @escaping(_ tableView: UITableView, _ cellArray: [UITableViewCell.Type] , _ indexPath: IndexPath) -> UITableViewCell ) -> ZFC_TableViewChainedInvoke {
+        
+        self.cellForRowAtIndexPathHandle = cellForRowAtIndexPathHandle
+        
+        return self
+    }
+    
+    @discardableResult
+    public func zfc_heightForRowAtIndexPath(_ heightForRowAtIndexPathHandle: @escaping(_ tableView: UITableView, _ indexPath: IndexPath) -> CGFloat ) -> ZFC_TableViewChainedInvoke {
+        
+        self.heightForRowAtIndexPathHandle = heightForRowAtIndexPathHandle
+        
+        return self
+    }
+    
+    @discardableResult
+    public func zfc_heightForHeaderInSection(_ heightForHeaderInSectionHandle: @escaping(_ tableView: UITableView, _ section: Int) -> CGFloat ) -> ZFC_TableViewChainedInvoke {
         
         assert((self.invokeConfig?.sectionHeaderClassArray ?? []).count > 0, "请传入一个段头的类对象")
         
-        return { heightForHeaderInSectionHandle in
-            
-            self.heightForHeaderInSectionHandle = heightForHeaderInSectionHandle
-            
-            return self
-        }
+        self.heightForHeaderInSectionHandle = heightForHeaderInSectionHandle
+        
+        return self
     }
     
-    public var zfc_viewForHeaderInSection: (_ viewForHeaderInSectionHandle: @escaping(_ tableView: UITableView, _ headerView: [UITableViewHeaderFooterView.Type],_ section: Int) -> UITableViewHeaderFooterView ) -> ZFC_TableViewChainedInvoke {
+    @discardableResult
+    public func zfc_viewForHeaderInSection(_ viewForHeaderInSectionHandle: @escaping(_ tableView: UITableView, _ headerView: [UITableViewHeaderFooterView.Type],_ section: Int) -> UITableViewHeaderFooterView ) -> ZFC_TableViewChainedInvoke {
         
         assert((self.invokeConfig?.sectionHeaderClassArray ?? []).count > 0, "请传入一个段头的类对象")
         
-        return { viewForHeaderInSectionHandle in
-            
-            self.viewForHeaderInSectionHandle = viewForHeaderInSectionHandle
-            
-            return self
-        }
+        self.viewForHeaderInSectionHandle = viewForHeaderInSectionHandle
+        
+        return self
     }
     
-    public var zfc_heightForFooterInSection: (_ heightForFooterInSectionHandle: @escaping(_ tableView: UITableView, _ section: Int) -> CGFloat ) -> ZFC_TableViewChainedInvoke {
+    @discardableResult
+    public func zfc_heightForFooterInSection(_ heightForFooterInSectionHandle: @escaping(_ tableView: UITableView, _ section: Int) -> CGFloat ) -> ZFC_TableViewChainedInvoke {
         
         assert((self.invokeConfig?.sectionFooterClassArray ?? []).count > 0, "请传入一个段尾的类对象")
         
-        return { heightForFooterInSectionHandle in
-            
-            self.heightForFooterInSectionHandle = heightForFooterInSectionHandle
-            
-            return self
-        }
+        self.heightForFooterInSectionHandle = heightForFooterInSectionHandle
+        
+        return self
     }
     
-    public var zfc_viewForFooterInSection: (_ viewForFooterInSectionHandle: @escaping(_ tableView: UITableView, _ footerView: [UITableViewHeaderFooterView.Type],_ section: Int) -> UITableViewHeaderFooterView ) -> ZFC_TableViewChainedInvoke {
+    @discardableResult
+    public func zfc_viewForFooterInSection(_ viewForFooterInSectionHandle: @escaping(_ tableView: UITableView, _ footerView: [UITableViewHeaderFooterView.Type],_ section: Int) -> UITableViewHeaderFooterView ) -> ZFC_TableViewChainedInvoke {
     
         assert((self.invokeConfig?.sectionFooterClassArray ?? []).count > 0, "请传入一个段尾的类对象")
         
-        return { viewForFooterInSectionHandle in
-            
-            self.viewForFooterInSectionHandle = viewForFooterInSectionHandle
-            
-            return self
-        }
-    }
-    
-    public var zfc_deleteCellWithIndexPath: (_ deleteCellWithIndexPathHandle: @escaping(_ tableView: UITableView, _ indexPath: IndexPath) -> () ) -> ZFC_TableViewChainedInvoke {
+        self.viewForFooterInSectionHandle = viewForFooterInSectionHandle
         
-        return { deleteCellWithIndexPathHandle in
-            
-            self.deleteCellWithIndexPathHandle = deleteCellWithIndexPathHandle
-            
-            return self
-        }
+        return self
     }
     
-    public var zfc_didSelectRowAtIndexPath: (_ didSelectRowAtIndexPathHandle: @escaping(_ tableView: UITableView, _ indexPath: IndexPath) -> () ) -> ZFC_TableViewChainedInvoke {
+    @discardableResult
+    public func zfc_deleteCellWithIndexPath(_ deleteCellWithIndexPathHandle: @escaping(_ tableView: UITableView, _ indexPath: IndexPath) -> () ) -> ZFC_TableViewChainedInvoke {
         
-        return { didSelectRowAtIndexPathHandle in
-            
-            self.didSelectRowAtIndexPathHandle = didSelectRowAtIndexPathHandle
-                        return self
-        }
+        self.deleteCellWithIndexPathHandle = deleteCellWithIndexPathHandle
+        
+        return self
     }
     
-    public func end() {}
-    
+    @discardableResult
+    public func zfc_didSelectRowAtIndexPath(_ didSelectRowAtIndexPathHandle: @escaping(_ tableView: UITableView, _ indexPath: IndexPath) -> () ) -> ZFC_TableViewChainedInvoke {
+        
+        self.didSelectRowAtIndexPathHandle = didSelectRowAtIndexPathHandle
+        return self
+    }
+
 }
 
 

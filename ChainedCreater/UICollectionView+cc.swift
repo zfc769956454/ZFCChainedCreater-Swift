@@ -19,129 +19,92 @@ public final class ZFC_CollectionViewChainedCreater {
         return collectionView
     }()
     
-    public var layout_minimumLineSpacing: (_ minimumLineSpacing: CGFloat) -> ZFC_CollectionViewChainedCreater {
+    @discardableResult
+    public func layout_minimumLineSpacing(_ minimumLineSpacing: CGFloat) -> ZFC_CollectionViewChainedCreater {
         
-        return { minimumLineSpacing in
-            
-            self.layout.minimumLineSpacing = minimumLineSpacing
-            
-            return self
-        }
+        self.layout.minimumLineSpacing = minimumLineSpacing
+        
+        return self
     }
     
-    
-    public var layout_minimumInteritemSpacing: (_ minimumInteritemSpacing: CGFloat) -> ZFC_CollectionViewChainedCreater {
+    @discardableResult
+    public func layout_minimumInteritemSpacing(_ minimumInteritemSpacing: CGFloat) -> ZFC_CollectionViewChainedCreater {
         
-        return { minimumInteritemSpacing in
-            
-            self.layout.minimumInteritemSpacing = minimumInteritemSpacing
-            
-            return self
-
-        }
+        self.layout.minimumInteritemSpacing = minimumInteritemSpacing
+        
+        return self
     }
     
-    public var layout_itemSize: (_ itemSize: CGSize) -> ZFC_CollectionViewChainedCreater {
+    @discardableResult
+    public func layout_itemSize(_ itemSize: CGSize) -> ZFC_CollectionViewChainedCreater {
         
-        return { itemSize in
-            
-            self.layout.itemSize = itemSize
-            
-            return self
-            
-        }
+        self.layout.itemSize = itemSize
+        
+        return self
     }
     
-    public var layout_estimatedItemSize: (_ estimatedItemSize: CGSize) -> ZFC_CollectionViewChainedCreater {
+    @discardableResult
+    public func layout_estimatedItemSize(_ estimatedItemSize: CGSize) -> ZFC_CollectionViewChainedCreater {
         
-        return { estimatedItemSize in
-            
-            self.layout.estimatedItemSize = estimatedItemSize
-            
-            return self
-            
-        }
+        self.layout.estimatedItemSize = estimatedItemSize
+        
+        return self
     }
     
-    public var layout_scrollDirection: (_ scrollDirection: UICollectionView.ScrollDirection) -> ZFC_CollectionViewChainedCreater {
+    @discardableResult
+    public func layout_scrollDirection(_ scrollDirection: UICollectionView.ScrollDirection) -> ZFC_CollectionViewChainedCreater {
         
-        return { scrollDirection in
-            
-            self.layout.scrollDirection = scrollDirection
-            
-            return self
-            
-        }
+        self.layout.scrollDirection = scrollDirection
+        
+        return self
     }
     
-    public var layout_headerReferenceSize: (_ headerReferenceSize: CGSize) -> ZFC_CollectionViewChainedCreater {
+    @discardableResult
+    public func layout_headerReferenceSize(_ headerReferenceSize: CGSize) -> ZFC_CollectionViewChainedCreater {
         
-        return { headerReferenceSize in
-            
-            self.layout.headerReferenceSize = headerReferenceSize
-            
-            return self
-            
-        }
+        self.layout.headerReferenceSize = headerReferenceSize
+        
+        return self
     }
     
-    public var layout_footerReferenceSize: (_ footerReferenceSize: CGSize) -> ZFC_CollectionViewChainedCreater {
+    @discardableResult
+    public func layout_footerReferenceSize(_ footerReferenceSize: CGSize) -> ZFC_CollectionViewChainedCreater {
         
-        return { footerReferenceSize in
-            
-            self.layout.footerReferenceSize = footerReferenceSize
-            
-            return self
-            
-        }
+        self.layout.footerReferenceSize = footerReferenceSize
+        
+        return self
     }
     
-    public var frame: (_ frame: CGRect) -> ZFC_CollectionViewChainedCreater {
+    @discardableResult
+    public func frame(_ frame: CGRect) -> ZFC_CollectionViewChainedCreater {
         
-        return { frame in
-            
-            self.chainedCollectionView.frame = frame
-            
-            return self
-            
-        }
+        self.chainedCollectionView.frame = frame
+        
+        return self
     }
     
-    
-
-    public var addIntoView: (_ superView: UIView) -> ZFC_CollectionViewChainedCreater {
+    @discardableResult
+    public func addIntoView(_ superView: UIView) -> ZFC_CollectionViewChainedCreater {
         
-        return { superView in
-            
-            superView.addSubview(self.chainedCollectionView)
-            
-            return self
-            
-        }
+        superView.addSubview(self.chainedCollectionView)
+        
+        return self
     }
     
-    
-    public var backgroundColor: (_ backgroudColor: UIColor) -> ZFC_CollectionViewChainedCreater {
+    @discardableResult
+    public func backgroundColor(_ backgroudColor: UIColor) -> ZFC_CollectionViewChainedCreater {
         
-        return { backgroudColor in
-            
-            self.chainedCollectionView.backgroundColor = backgroudColor
-            
-            return self
-            
-        }
+        self.chainedCollectionView.backgroundColor = backgroudColor
+        
+        return self
     }
     
-    public var tag: (_ tag: Int) -> ZFC_CollectionViewChainedCreater {
+    @discardableResult
+    public func tag(_ tag: Int) -> ZFC_CollectionViewChainedCreater {
         
-        return { tag in
-            
-            self.chainedCollectionView.tag = tag
-            return self
-        }
+        self.chainedCollectionView.tag = tag
+        return self
     }
-    
-    public func end() {}
     
 }
 
@@ -149,7 +112,7 @@ public final class ZFC_CollectionViewChainedCreater {
 extension ChainedCreater where Base: UICollectionView {
     
     @discardableResult
-    public static func zfc_collectionViewChainedCreater(chainedCreaterBlock: @escaping(_ creater: ZFC_CollectionViewChainedCreater) -> ()) -> UICollectionView {
+    public static func zfc_collectionViewChainedCreater(_ chainedCreaterBlock: (_ creater: ZFC_CollectionViewChainedCreater) -> ()) -> UICollectionView {
         
         let chainedCreater = ZFC_CollectionViewChainedCreater()
         chainedCreaterBlock(chainedCreater)
@@ -186,139 +149,113 @@ public class ZFC_CollectionViewChainedInvoke: NSObject{
     private var collectionElementKindSectionFooterHandle: ((_ collectionView: UICollectionView, _ sectionFooterView: [UICollectionReusableView.Type],_ indexPath: IndexPath) -> UICollectionReusableView)?
     private var didSelectItemAtIndexPathHandle: ((_ collectionView: UICollectionView, _ indexPath: IndexPath) -> ())?
     
-    
-    public var zfc_collectionViewConfigure: (_ invokeConfig: ZFC_CollectionViewChainedInvokeConfig) -> ZFC_CollectionViewChainedInvoke {
+    @discardableResult
+    public func zfc_collectionViewConfigure(_ invokeConfig: ZFC_CollectionViewChainedInvokeConfig) -> ZFC_CollectionViewChainedInvoke {
         
-        return { invokeConfig in
-            
-            self.invokeConfig = invokeConfig
-            guard let cellClassArray = invokeConfig.cellClassArray else {
-                assert(true, "请传入一个cell的类对象")
-                return self
+        self.invokeConfig = invokeConfig
+        guard let cellClassArray = invokeConfig.cellClassArray else {
+            assert(true, "请传入一个cell的类对象")
+            return self
+        }
+        for cellClass in cellClassArray {
+            invokeConfig.collectionView?.register(cellClass, forCellWithReuseIdentifier: "\(cellClass)")
+        }
+        
+        if let sectionHeaderClassArray = invokeConfig.sectionHeaderClassArray {
+            for sectionHeaderClass in sectionHeaderClassArray {
+                invokeConfig.collectionView?.register(sectionHeaderClass, forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: "\(sectionHeaderClass)")
             }
-            for cellClass in cellClassArray {
-                invokeConfig.collectionView?.register(cellClass, forCellWithReuseIdentifier: "\(cellClass)")
+        }
+        
+        if let sectionFooterClassArray = invokeConfig.sectionFooterClassArray {
+            for sectionFooterClass in sectionFooterClassArray {
+                invokeConfig.collectionView?.register(sectionFooterClass, forSupplementaryViewOfKind: UICollectionElementKindSectionFooter, withReuseIdentifier: "\(sectionFooterClass)")
             }
-            
-            if let sectionHeaderClassArray = invokeConfig.sectionHeaderClassArray {
-                for sectionHeaderClass in sectionHeaderClassArray {
-                    invokeConfig.collectionView?.register(sectionHeaderClass, forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: "\(sectionHeaderClass)")
-                }
-            }
-            
-            if let sectionFooterClassArray = invokeConfig.sectionFooterClassArray {
-                for sectionFooterClass in sectionFooterClassArray {
-                    invokeConfig.collectionView?.register(sectionFooterClass, forSupplementaryViewOfKind: UICollectionElementKindSectionFooter, withReuseIdentifier: "\(sectionFooterClass)")
-                }
-            }
-            invokeConfig.collectionView?.delegate = self
-            invokeConfig.collectionView?.dataSource = self
-            
-            return self
         }
-    }
-    
-    public var zfc_numberOfSectionsInCollectionView: (_ numberOfSectionsInCollectionViewHandle: @escaping(_ collectionView: UICollectionView) -> Int ) -> ZFC_CollectionViewChainedInvoke {
+        invokeConfig.collectionView?.delegate = self
+        invokeConfig.collectionView?.dataSource = self
         
-        return { numberOfSectionsInCollectionViewHandle in
-            
-            self.numberOfSectionsInCollectionViewHandle = numberOfSectionsInCollectionViewHandle
-            
-            return self
-        }
+        return self
     }
     
-    public var zfc_numberOfItemsInSection: (_ numberOfItemsInSectionHandle: @escaping(_ collectionView: UICollectionView, _ section: Int) -> Int ) -> ZFC_CollectionViewChainedInvoke {
+    @discardableResult
+    public func zfc_numberOfSectionsInCollectionView(_ numberOfSectionsInCollectionViewHandle: @escaping(_ collectionView: UICollectionView) -> Int ) -> ZFC_CollectionViewChainedInvoke {
         
-        return { numberOfItemsInSectionHandle in
-            
-            self.numberOfItemsInSectionHandle = numberOfItemsInSectionHandle
-            
-            return self
-        }
-    }
-    
-    
-    public var zfc_cellForItemAtIndexPath: (_ cellForItemAtIndexPathHandle: @escaping(_ collectionView: UICollectionView, _ cellArray: [UICollectionViewCell.Type] , _ indexPath: IndexPath) -> UICollectionViewCell ) -> ZFC_CollectionViewChainedInvoke {
+        self.numberOfSectionsInCollectionViewHandle = numberOfSectionsInCollectionViewHandle
         
-        return { cellForItemAtIndexPathHandle in
-            
-            self.cellForItemAtIndexPathHandle = cellForItemAtIndexPathHandle
-            
-            return self
-        }
+        return self
     }
     
-    public var zfc_sizeForItemAtIndexPath: (_ sizeForItemAtIndexPathHandle: @escaping(_ collectionView: UICollectionView, _ indexPath: IndexPath) -> CGSize ) -> ZFC_CollectionViewChainedInvoke {
+    @discardableResult
+    public func zfc_numberOfItemsInSection(_ numberOfItemsInSectionHandle: @escaping(_ collectionView: UICollectionView, _ section: Int) -> Int ) -> ZFC_CollectionViewChainedInvoke {
         
-        return { sizeForItemAtIndexPathHandle in
-            
-            self.sizeForItemAtIndexPathHandle = sizeForItemAtIndexPathHandle
-            
-            return self
-        }
+        self.numberOfItemsInSectionHandle = numberOfItemsInSectionHandle
+        
+        return self
     }
     
+    @discardableResult
+    public func zfc_cellForItemAtIndexPath(_ cellForItemAtIndexPathHandle: @escaping(_ collectionView: UICollectionView, _ cellArray: [UICollectionViewCell.Type] , _ indexPath: IndexPath) -> UICollectionViewCell ) -> ZFC_CollectionViewChainedInvoke {
+        
+        self.cellForItemAtIndexPathHandle = cellForItemAtIndexPathHandle
+        
+        return self
+    }
     
-    public var zfc_referenceSizeForHeaderInSection: (_ referenceSizeForHeaderInSectionHandle: @escaping(_ collectionView: UICollectionView, _ section: Int) -> CGSize ) -> ZFC_CollectionViewChainedInvoke {
+    @discardableResult
+    public func zfc_sizeForItemAtIndexPath(_ sizeForItemAtIndexPathHandle: @escaping(_ collectionView: UICollectionView, _ indexPath: IndexPath) -> CGSize ) -> ZFC_CollectionViewChainedInvoke {
+        
+        self.sizeForItemAtIndexPathHandle = sizeForItemAtIndexPathHandle
+        
+        return self
+    }
+    
+    @discardableResult
+    public func zfc_referenceSizeForHeaderInSection(_ referenceSizeForHeaderInSectionHandle: @escaping(_ collectionView: UICollectionView, _ section: Int) -> CGSize ) -> ZFC_CollectionViewChainedInvoke {
         
         assert((self.invokeConfig?.sectionHeaderClassArray ?? []).count > 0, "请传入一个段头的类对象")
         
-        return { referenceSizeForHeaderInSectionHandle in
-            
-            self.referenceSizeForHeaderInSectionHandle = referenceSizeForHeaderInSectionHandle
-            
-            return self
-        }
+        self.referenceSizeForHeaderInSectionHandle = referenceSizeForHeaderInSectionHandle
+        
+        return self
     }
     
-    public var zfc_collectionElementKindSectionHeader: (_ collectionElementKindSectionHeaderHandle: @escaping(_ collectionView: UICollectionView, _ headerView: [UICollectionReusableView.Type],_ indexPath: IndexPath) -> UICollectionReusableView ) -> ZFC_CollectionViewChainedInvoke {
+    @discardableResult
+    public func zfc_collectionElementKindSectionHeader(_ collectionElementKindSectionHeaderHandle: @escaping(_ collectionView: UICollectionView, _ headerView: [UICollectionReusableView.Type],_ indexPath: IndexPath) -> UICollectionReusableView ) -> ZFC_CollectionViewChainedInvoke {
         
         assert((self.invokeConfig?.sectionHeaderClassArray ?? []).count > 0, "请传入一个段头的类对象")
         
-        return { collectionElementKindSectionHeaderHandle in
-            
-            self.collectionElementKindSectionHeaderHandle = collectionElementKindSectionHeaderHandle
-            
-            return self
-        }
+        self.collectionElementKindSectionHeaderHandle = collectionElementKindSectionHeaderHandle
+        
+        return self
     }
     
-    public var zfc_referenceSizeForFooterInSection: (_ referenceSizeForFooterInSectionHandle: @escaping(_ collectionView: UICollectionView, _ section: Int) -> CGSize ) -> ZFC_CollectionViewChainedInvoke {
+    @discardableResult
+    public func zfc_referenceSizeForFooterInSection(_ referenceSizeForFooterInSectionHandle: @escaping(_ collectionView: UICollectionView, _ section: Int) -> CGSize ) -> ZFC_CollectionViewChainedInvoke {
         
         assert((self.invokeConfig?.sectionFooterClassArray ?? []).count > 0, "请传入一个段尾的类对象")
         
-        return { referenceSizeForFooterInSectionHandle in
-            
-            self.referenceSizeForFooterInSectionHandle = referenceSizeForFooterInSectionHandle
-            
-            return self
-        }
+        self.referenceSizeForFooterInSectionHandle = referenceSizeForFooterInSectionHandle
+        
+        return self
     }
     
-    public var zfc_collectionElementKindSectionFooter: (_ collectionElementKindSectionFooterHandle: @escaping(_ collectionView: UICollectionView, _ footerView: [UICollectionReusableView.Type],_ indexPath: IndexPath) -> UICollectionReusableView ) -> ZFC_CollectionViewChainedInvoke {
+    @discardableResult
+    public func zfc_collectionElementKindSectionFooter(_ collectionElementKindSectionFooterHandle: @escaping(_ collectionView: UICollectionView, _ footerView: [UICollectionReusableView.Type],_ indexPath: IndexPath) -> UICollectionReusableView ) -> ZFC_CollectionViewChainedInvoke {
         
         assert((self.invokeConfig?.sectionFooterClassArray ?? []).count > 0, "请传入一个段尾的类对象")
         
-        return { collectionElementKindSectionFooterHandle in
-            
-            self.collectionElementKindSectionFooterHandle = collectionElementKindSectionFooterHandle
-            
-            return self
-        }
-    }
-    
-  
-    public var zfc_didSelectItemAtIndexPath: (_ didSelectItemAtIndexPathHandle: @escaping(_ collectionView: UICollectionView, _ indexPath: IndexPath) -> () ) -> ZFC_CollectionViewChainedInvoke {
+        self.collectionElementKindSectionFooterHandle = collectionElementKindSectionFooterHandle
         
-        return { didSelectItemAtIndexPathHandle in
-            
-            self.didSelectItemAtIndexPathHandle = didSelectItemAtIndexPathHandle
-            return self
-        }
+        return self
     }
     
-    public func end() {}
+    @discardableResult
+    public func zfc_didSelectItemAtIndexPath(_ didSelectItemAtIndexPathHandle: @escaping(_ collectionView: UICollectionView, _ indexPath: IndexPath) -> () ) -> ZFC_CollectionViewChainedInvoke {
+        
+        self.didSelectItemAtIndexPathHandle = didSelectItemAtIndexPathHandle
+        return self
+    }
     
 }
 
@@ -421,7 +358,7 @@ extension UICollectionView {
         }
     }
     
-    public func zfc_configCollectionView(configure: (_ chainedInvoke: ZFC_CollectionViewChainedInvoke) -> ()) {
+    public func zfc_configCollectionView(_ configure: (_ chainedInvoke: ZFC_CollectionViewChainedInvoke) -> ()) {
         
         let chainedInvoke = ZFC_CollectionViewChainedInvoke()
         

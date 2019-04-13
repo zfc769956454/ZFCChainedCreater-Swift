@@ -21,113 +21,87 @@ public final class ZFC_ImageViewChainedCreater {
         
     }()
     
-    public var addIntoView: (_ superView: UIView) -> ZFC_ImageViewChainedCreater {
-        return { superView in
-    
-            superView.addSubview(self.chainedImageView)
-            
-            return self
-            
-        }
-    }
-    
-    public var frame: (_ frame: CGRect) -> ZFC_ImageViewChainedCreater {
+    @discardableResult
+    public func addIntoView(_ superView: UIView) -> ZFC_ImageViewChainedCreater {
+        superView.addSubview(self.chainedImageView)
         
-        return { frame in
-            
-            self.chainedImageView.frame = frame
-            
-            return self
-            
-        }
+        return self
     }
     
-    public var backgroundColor: (_ backgroudColor: UIColor) -> ZFC_ImageViewChainedCreater {
+    @discardableResult
+    public func frame(_ frame: CGRect) -> ZFC_ImageViewChainedCreater {
         
-        return { backgroudColor in
-            
-            self.chainedImageView.backgroundColor = backgroudColor
-            
-            return self
-            
-        }
-    }
-    
-    public var tag: (_ tag: Int) -> ZFC_ImageViewChainedCreater {
+        self.chainedImageView.frame = frame
         
-        return { tag in
-            
-            self.chainedImageView.tag = tag
-            
-            return self
-        }
+        return self
     }
     
-    public var layerCornerRadius: (_ cornerRadius: CGFloat) -> ZFC_ImageViewChainedCreater {
+    @discardableResult
+    public func backgroundColor(_ backgroudColor: UIColor) -> ZFC_ImageViewChainedCreater {
         
-        return { cornerRadius in
-            
-            self.chainedImageView.layer.cornerRadius = cornerRadius
-            self.chainedImageView.clipsToBounds = true
-            
-            return self
-        }
-    }
-    
-    public var image: (_ image: UIImage) -> ZFC_ImageViewChainedCreater {
+        self.chainedImageView.backgroundColor = backgroudColor
         
-        return { image in
-            
-            self.chainedImageView.image = image
-            
-            return self
-            
-        }
+        return self
     }
     
-    public var contentMode: (_ contentMode: UIView.ContentMode) -> ZFC_ImageViewChainedCreater {
+    @discardableResult
+    public func tag(_ tag: Int) -> ZFC_ImageViewChainedCreater {
         
-        return { contentMode in
-            
-            self.chainedImageView.contentMode = contentMode
-            
-            return self
-        }
-    }
-    
-    public var isUserInteractionEnabled: (_ isUserInteractionEnabled: Bool) -> ZFC_ImageViewChainedCreater {
+        self.chainedImageView.tag = tag
         
-        return { isUserInteractionEnabled in
-            
-            self.chainedImageView.isUserInteractionEnabled = isUserInteractionEnabled
-            
-            return self
-        }
+        return self
     }
     
-    public var layerBorderWidthAndBorderColor: (_ borderWidth: CGFloat, _ borderColor: UIColor) -> ZFC_ImageViewChainedCreater {
+    @discardableResult
+    public func layerCornerRadius(_ cornerRadius: CGFloat) -> ZFC_ImageViewChainedCreater {
         
-        return { (borderWidth,borderColor) in
-            
-            self.chainedImageView.layer.borderWidth = borderWidth;
-            self.chainedImageView.layer.borderColor = borderColor.cgColor;
-            
-            return self
-        }
-    }
-    
-    public var tapBlock: (_ tapBlock: @escaping(ZFC_CreaterImageViewTapBlock)) -> ZFC_ImageViewChainedCreater {
+        self.chainedImageView.layer.cornerRadius = cornerRadius
+        self.chainedImageView.clipsToBounds = true
         
-        return { tapBlock in
-            
-            self.chainedImageView.isUserInteractionEnabled = true
-            self.keepBlock = tapBlock
-            
-            return self
-        }
+        return self
     }
     
-    public func end() {}
+    @discardableResult
+    public func image(_ image: UIImage) -> ZFC_ImageViewChainedCreater {
+        
+        self.chainedImageView.image = image
+        
+        return self
+    }
+    
+    @discardableResult
+    public func contentMode(_ contentMode: UIView.ContentMode) -> ZFC_ImageViewChainedCreater {
+        
+        self.chainedImageView.contentMode = contentMode
+        
+        return self
+    }
+    
+    @discardableResult
+    public func isUserInteractionEnabled(_ isUserInteractionEnabled: Bool) -> ZFC_ImageViewChainedCreater {
+        
+        self.chainedImageView.isUserInteractionEnabled = isUserInteractionEnabled
+        
+        return self
+    }
+    
+    @discardableResult
+    public func layerBorderWidthAndBorderColor(_ borderWidth: CGFloat, _ borderColor: UIColor) -> ZFC_ImageViewChainedCreater {
+        
+        self.chainedImageView.layer.borderWidth = borderWidth;
+        self.chainedImageView.layer.borderColor = borderColor.cgColor;
+        
+        return self
+    }
+    
+    @discardableResult
+    public func tapBlock(_ tapBlock: @escaping(ZFC_CreaterImageViewTapBlock)) -> ZFC_ImageViewChainedCreater {
+        
+        self.chainedImageView.isUserInteractionEnabled = true
+        self.keepBlock = tapBlock
+        
+        return self
+    }
     
     init() {
         
@@ -172,7 +146,7 @@ extension UIImageView {
 extension ChainedCreater where Base: UIImageView {
     
     @discardableResult
-    public static func zfc_imageViewChainedCreater(chainedCreaterBlock: @escaping(_ creater: ZFC_ImageViewChainedCreater) -> ()) -> UIImageView {
+    public static func zfc_imageViewChainedCreater(_ chainedCreaterBlock: (_ creater: ZFC_ImageViewChainedCreater) -> ()) -> UIImageView {
         
         let chainedCreater = ZFC_ImageViewChainedCreater()
         chainedCreaterBlock(chainedCreater)

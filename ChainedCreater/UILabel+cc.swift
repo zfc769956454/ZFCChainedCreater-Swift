@@ -21,143 +21,108 @@ public final class ZFC_LabelChainedCreater {
         
     }()
     
-    
-    public var addIntoView: (_ superView: UIView) -> ZFC_LabelChainedCreater {
-        return { superView in
-            
-            superView.addSubview(self.chainedLabel)
-            return self
-            
-        }
-    }
-    
-    
-    public var frame: (_ frame: CGRect) -> ZFC_LabelChainedCreater {
+    @discardableResult
+    public func addIntoView(_ superView: UIView) -> ZFC_LabelChainedCreater {
         
-        return { frame in
-            
-            self.chainedLabel.frame = frame
-            return self
-            
-        }
-    }
-    
-    public var backgroundColor: (_ backgroudColor: UIColor) -> ZFC_LabelChainedCreater {
+        superView.addSubview(self.chainedLabel)
+        return self
         
-        return { backgroudColor in
-            
-            self.chainedLabel.backgroundColor = backgroudColor
-            return self
-            
-        }
     }
     
-    public var text: (_ text: String) -> ZFC_LabelChainedCreater {
+    @discardableResult
+    public func frame(_ frame: CGRect) -> ZFC_LabelChainedCreater {
         
-        return { text in
-            
-            self.chainedLabel.text = text
-            return self
-            
-        }
+        self.chainedLabel.frame = frame
+        return self
     }
     
-    public var textColor: (_ textColor: UIColor) -> ZFC_LabelChainedCreater {
+    @discardableResult
+    public func backgroundColor(_ backgroudColor: UIColor) -> ZFC_LabelChainedCreater {
         
-        return { textColor in
-            
-            self.chainedLabel.textColor = textColor
-            return self
-        }
+        self.chainedLabel.backgroundColor = backgroudColor
+        return self
     }
     
-    public var font: (_ font: UIFont) -> ZFC_LabelChainedCreater {
+    @discardableResult
+    public func text(_ text: String) -> ZFC_LabelChainedCreater {
         
-        return { font in
-            
-            self.chainedLabel.font = font
-            return self
-        }
+        self.chainedLabel.text = text
+        return self
     }
     
-    public var textAlignment: (_ textAlignment: NSTextAlignment) -> ZFC_LabelChainedCreater {
+    @discardableResult
+    public func textColor(_ textColor: UIColor) -> ZFC_LabelChainedCreater {
         
-        return { textAlignment in
-            
-            self.chainedLabel.textAlignment = textAlignment
-            return self
-        }
+        self.chainedLabel.textColor = textColor
+        return self
     }
     
-    public var numberOfLines: (_ numberOfLines: NSInteger) -> ZFC_LabelChainedCreater {
+    @discardableResult
+    public func font(_ font: UIFont) -> ZFC_LabelChainedCreater {
         
-        return { numberOfLines in
-            
-            self.chainedLabel.numberOfLines = numberOfLines
-            return self
-        }
+        self.chainedLabel.font = font
+        return self
     }
     
-    public var lineBreakMode: (_ lineBreakMode: NSLineBreakMode) -> ZFC_LabelChainedCreater {
+    @discardableResult
+    public func textAlignment(_ textAlignment: NSTextAlignment) -> ZFC_LabelChainedCreater {
         
-        return { lineBreakMode in
-            
-            self.chainedLabel.lineBreakMode = lineBreakMode
-            return self
-        }
+        self.chainedLabel.textAlignment = textAlignment
+        return self
     }
     
-    public var isUserInteractionEnabled: (_ isUserInteractionEnabled: Bool) -> ZFC_LabelChainedCreater {
+    @discardableResult
+    public func numberOfLines(_ numberOfLines: NSInteger) -> ZFC_LabelChainedCreater {
         
-        return { isUserInteractionEnabled in
-            
-            self.chainedLabel.isUserInteractionEnabled = isUserInteractionEnabled
-            return self
-        }
+        self.chainedLabel.numberOfLines = numberOfLines
+        return self
     }
     
-    public var tag: (_ tag: Int) -> ZFC_LabelChainedCreater {
+    @discardableResult
+    public func lineBreakMode(_ lineBreakMode: NSLineBreakMode) -> ZFC_LabelChainedCreater {
         
-        return { tag in
-            
-            self.chainedLabel.tag = tag
-            return self
-        }
+        self.chainedLabel.lineBreakMode = lineBreakMode
+        return self
     }
     
-    public var layerCornerRadius: (_ cornerRadius: CGFloat) -> ZFC_LabelChainedCreater {
+    @discardableResult
+    public func isUserInteractionEnabled(_ isUserInteractionEnabled: Bool) -> ZFC_LabelChainedCreater {
         
-        return { cornerRadius in
-            
-            self.chainedLabel.layer.cornerRadius = cornerRadius
-            self.chainedLabel.clipsToBounds = true
-            return self
-        }
+        self.chainedLabel.isUserInteractionEnabled = isUserInteractionEnabled
+        return self
     }
     
-    public var layerBorderWidthAndBorderColor: (_ borderWidth: CGFloat, _ borderColor: UIColor) -> ZFC_LabelChainedCreater {
+    @discardableResult
+    public func tag(_ tag: Int) -> ZFC_LabelChainedCreater {
         
-        return { (borderWidth,borderColor) in
-            
-            self.chainedLabel.layer.borderWidth = borderWidth;
-            self.chainedLabel.layer.borderColor = borderColor.cgColor;
-            return self
-        }
+        self.chainedLabel.tag = tag
+        return self
     }
     
-
-    public var tapBlock: (_ tapBlock: @escaping(ZFC_CreaterLabelTapBlock)) -> ZFC_LabelChainedCreater {
+    @discardableResult
+    public func layerCornerRadius(_ cornerRadius: CGFloat) -> ZFC_LabelChainedCreater {
         
-        return { tapBlock in
-            
-            self.chainedLabel.isUserInteractionEnabled = true
-            self.keepBlock = tapBlock
-            
-            return self
-        }
+        self.chainedLabel.layer.cornerRadius = cornerRadius
+        self.chainedLabel.clipsToBounds = true
+        return self
     }
     
-    public func end() {}
+    @discardableResult
+    public func layerBorderWidthAndBorderColor(_ borderWidth: CGFloat, _ borderColor: UIColor) -> ZFC_LabelChainedCreater {
+        
+        self.chainedLabel.layer.borderWidth = borderWidth;
+        self.chainedLabel.layer.borderColor = borderColor.cgColor;
+        return self
+    }
+    
+    @discardableResult
+    public func tapBlock(_ tapBlock: @escaping(ZFC_CreaterLabelTapBlock)) -> ZFC_LabelChainedCreater {
+        
+        self.chainedLabel.isUserInteractionEnabled = true
+        self.keepBlock = tapBlock
+        
+        return self
+    }
     
     init() {
         
@@ -201,7 +166,7 @@ extension UILabel {
 extension ChainedCreater where Base: UILabel {
 
     @discardableResult
-    public static func zfc_labelChainedCreater(chainedCreaterBlock: @escaping(_ creater: ZFC_LabelChainedCreater) -> ()) -> UILabel {
+    public static func zfc_labelChainedCreater(_ chainedCreaterBlock: (_ creater: ZFC_LabelChainedCreater) -> ()) -> UILabel {
         
         let chainedCreater = ZFC_LabelChainedCreater()
         chainedCreaterBlock(chainedCreater)

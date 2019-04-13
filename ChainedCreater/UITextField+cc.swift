@@ -17,134 +17,107 @@ public final class ZFC_TextFieldChainedCreater {
         
     }()
     
-    
-    public var addIntoView: (_ superView: UIView) -> ZFC_TextFieldChainedCreater {
-        return { superView in
-            
-            superView.addSubview(self.chainedTextField)
-            return self
-            
-        }
-    }
-    
-    
-    public var frame: (_ frame: CGRect) -> ZFC_TextFieldChainedCreater {
+    @discardableResult
+    public func addIntoView(_ superView: UIView) -> ZFC_TextFieldChainedCreater {
+        superView.addSubview(self.chainedTextField)
         
-        return { frame in
-            
-            self.chainedTextField.frame = frame
-            return self
-            
-        }
+        return self
     }
     
-    public var backgroundColor: (_ backgroudColor: UIColor) -> ZFC_TextFieldChainedCreater {
+    @discardableResult
+    public func frame(_ frame: CGRect) -> ZFC_TextFieldChainedCreater {
         
-        return { backgroudColor in
-            
-            self.chainedTextField.backgroundColor = backgroudColor
-            return self
-            
-        }
-    }
-    
-    
-    public var font: (_ font: UIFont) -> ZFC_TextFieldChainedCreater {
+        self.chainedTextField.frame = frame
+        return self
         
-        return { font in
-            
-            self.chainedTextField.font = font
-            return self
-        }
     }
     
-    
-    public var tag: (_ tag: Int) -> ZFC_TextFieldChainedCreater {
+    @discardableResult
+    public func backgroundColor(_ backgroudColor: UIColor) -> ZFC_TextFieldChainedCreater {
         
-        return { tag in
-            
-            self.chainedTextField.tag = tag
-            return self
-        }
+        self.chainedTextField.backgroundColor = backgroudColor
+        return self
     }
     
-    public var text: (_ text: String) -> ZFC_TextFieldChainedCreater {
+    @discardableResult
+    public func font(_ font: UIFont) -> ZFC_TextFieldChainedCreater {
         
-        return { text in
-            
-            self.chainedTextField.text = text
-            return self
-        }
-    }
-    
-    public var borderStyle: (_ borderStyle: UITextField.BorderStyle) -> ZFC_TextFieldChainedCreater {
+        self.chainedTextField.font = font
+        return self
         
-        return { borderStyle in
-            
-            self.chainedTextField.borderStyle = borderStyle
-            return self
-        }
     }
     
-    public var placeholder: (_ placeholder: String) -> ZFC_TextFieldChainedCreater {
+    @discardableResult
+    public func tag(_ tag: Int) -> ZFC_TextFieldChainedCreater {
         
-        return { placeholder in
-            
-            self.chainedTextField.placeholder = placeholder
-            return self
-        }
-    }
-    
-    public var clearButtonMode: (_ clearButtonMode: UITextField.ViewMode) -> ZFC_TextFieldChainedCreater {
+        self.chainedTextField.tag = tag
+        return self
         
-        return { clearButtonMode in
-            
-            self.chainedTextField.clearButtonMode = clearButtonMode
-            return self
-        }
     }
     
-    
-    public var layerCornerRadius: (_ cornerRadius: CGFloat) -> ZFC_TextFieldChainedCreater {
+    @discardableResult
+    public func text(_ text: String) -> ZFC_TextFieldChainedCreater {
         
-        return { cornerRadius in
-            
-            self.chainedTextField.layer.cornerRadius = cornerRadius
-            self.chainedTextField.clipsToBounds = true
-            return self
-        }
+        self.chainedTextField.text = text
+        return self
     }
     
-    
-    public var keyboardType: (_ keyboardType: UIKeyboardType) -> ZFC_TextFieldChainedCreater {
+    @discardableResult
+    public func borderStyle(_ borderStyle: UITextField.BorderStyle) -> ZFC_TextFieldChainedCreater {
         
-        return { keyboardType in
-            
-            self.chainedTextField.keyboardType = keyboardType
-            return self
-        }
-    }
-    
-    
-    public var layerBorderWidthAndBorderColor: (_ borderWidth: CGFloat, _ borderColor: UIColor) -> ZFC_TextFieldChainedCreater {
+        self.chainedTextField.borderStyle = borderStyle
+        return self
         
-        return { (borderWidth,borderColor) in
-            
-            self.chainedTextField.layer.borderWidth = borderWidth;
-            self.chainedTextField.layer.borderColor = borderColor.cgColor;
-            return self
-        }
     }
     
-    public func end() {}
+    @discardableResult
+    public func placeholder(_ placeholder: String) -> ZFC_TextFieldChainedCreater {
+        
+        self.chainedTextField.placeholder = placeholder
+        return self
+        
+    }
     
+    @discardableResult
+    public func clearButtonMode(_ clearButtonMode: UITextField.ViewMode) -> ZFC_TextFieldChainedCreater {
+        
+        self.chainedTextField.clearButtonMode = clearButtonMode
+        return self
+        
+    }
+    
+    @discardableResult
+    public func layerCornerRadius(_ cornerRadius: CGFloat) -> ZFC_TextFieldChainedCreater {
+        
+        self.chainedTextField.layer.cornerRadius = cornerRadius
+        self.chainedTextField.clipsToBounds = true
+        return self
+    }
+    
+    @discardableResult
+    public func keyboardType(_ keyboardType: UIKeyboardType) -> ZFC_TextFieldChainedCreater {
+        
+        self.chainedTextField.keyboardType = keyboardType
+        return self
+        
+    }
+    
+    @discardableResult
+    public func layerBorderWidthAndBorderColor(_ borderWidth: CGFloat, _ borderColor: UIColor) -> ZFC_TextFieldChainedCreater {
+        
+        self.chainedTextField.layer.borderWidth = borderWidth;
+        self.chainedTextField.layer.borderColor = borderColor.cgColor;
+        return self
+        
+    }
+
 }
 
 
 extension ChainedCreater where Base: UITextField {
     
     @discardableResult
-    public static func zfc_textFieldChainedCreater(chainedCreaterBlock: @escaping(_ creater: ZFC_TextFieldChainedCreater) -> ()) -> UITextField {
+    public static func zfc_textFieldChainedCreater(_ chainedCreaterBlock: (_ creater: ZFC_TextFieldChainedCreater) -> ()) -> UITextField {
         
         let chainedCreater = ZFC_TextFieldChainedCreater()
         chainedCreaterBlock(chainedCreater)

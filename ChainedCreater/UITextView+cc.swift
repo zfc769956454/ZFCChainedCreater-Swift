@@ -17,119 +17,86 @@ public final class ZFC_TextViewChainedCreater {
         
     }()
     
-    
-    public var addIntoView: (_ superView: UIView) -> ZFC_TextViewChainedCreater {
-        return { superView in
-            
-            superView.addSubview(self.chainedTextView)
-            return self
-            
-        }
+    @discardableResult
+    public func addIntoView(_ superView: UIView) -> ZFC_TextViewChainedCreater {
+        superView.addSubview(self.chainedTextView)
+        return self
     }
     
-    
-    public var frame: (_ frame: CGRect) -> ZFC_TextViewChainedCreater {
+    @discardableResult
+    public func frame(_ frame: CGRect) -> ZFC_TextViewChainedCreater {
         
-        return { frame in
-            
-            self.chainedTextView.frame = frame
-            return self
-            
-        }
+        self.chainedTextView.frame = frame
+        return self
     }
     
-    public var backgroundColor: (_ backgroudColor: UIColor) -> ZFC_TextViewChainedCreater {
+    @discardableResult
+    public func backgroundColor(_ backgroudColor: UIColor) -> ZFC_TextViewChainedCreater {
         
-        return { backgroudColor in
-            
-            self.chainedTextView.backgroundColor = backgroudColor
-            return self
-            
-        }
+        self.chainedTextView.backgroundColor = backgroudColor
+        return self
     }
     
-    
-    public var font: (_ font: UIFont) -> ZFC_TextViewChainedCreater {
+    @discardableResult
+    public func font(_ font: UIFont) -> ZFC_TextViewChainedCreater {
         
-        return { font in
-            
-            self.chainedTextView.font = font
-            return self
-        }
+        self.chainedTextView.font = font
+        return self
     }
     
-    
-    public var tag: (_ tag: Int) -> ZFC_TextViewChainedCreater {
+    @discardableResult
+    public func tag(_ tag: Int) -> ZFC_TextViewChainedCreater {
         
-        return { tag in
-            
-            self.chainedTextView.tag = tag
-            return self
-        }
+        self.chainedTextView.tag = tag
+        return self
     }
     
-    public var text: (_ text: String) -> ZFC_TextViewChainedCreater {
+    @discardableResult
+    public func text(_ text: String) -> ZFC_TextViewChainedCreater {
         
-        return { text in
-            
-            self.chainedTextView.text = text
-            return self
-        }
+        self.chainedTextView.text = text
+        return self
     }
     
-  
-    public var placeholder: (_ placeholder: String) -> ZFC_TextViewChainedCreater {
+    @discardableResult
+    public func placeholder(_ placeholder: String) -> ZFC_TextViewChainedCreater {
 
-        return { placeholder in
+        self.chainedTextView.placeholder = placeholder
+        return self
+    }
+    
+    @discardableResult
+    public func placeholderColor(_ placeholderColor: UIColor) -> ZFC_TextViewChainedCreater {
+        
+        assert(self.chainedTextView.placeholder.count > 0, "请先设置placeholder属性")
+        
+        self.chainedTextView.placeholderColor = placeholderColor
+        return self
+    }
+    
+    @discardableResult
+    public func keyboardType(_ keyboardType: UIKeyboardType) -> ZFC_TextViewChainedCreater {
+        
+        self.chainedTextView.keyboardType = keyboardType
+        return self
+    }
+    
+    @discardableResult
+    public func layerCornerRadius(_ cornerRadius: CGFloat) -> ZFC_TextViewChainedCreater {
+        
+        self.chainedTextView.layer.cornerRadius = cornerRadius
+        self.chainedTextView.clipsToBounds = true
+        return self
+    }
+    
+    @discardableResult
+    public func layerBorderWidthAndBorderColor(_ borderWidth: CGFloat, _ borderColor: UIColor) -> ZFC_TextViewChainedCreater {
+        
+        self.chainedTextView.layer.borderWidth = borderWidth;
+        self.chainedTextView.layer.borderColor = borderColor.cgColor;
+        return self
+    }
 
-            self.chainedTextView.placeholder = placeholder
-            return self
-        }
-    }
-    
-    public var placeholderColor: (_ placeholderColor: UIColor) -> ZFC_TextViewChainedCreater {
-        
-        return { placeholderColor in
-            
-            assert(self.chainedTextView.placeholder.count > 0, "请先设置placeholder属性")
-            
-            self.chainedTextView.placeholderColor = placeholderColor
-            return self
-        }
-    }
-    
-    public var keyboardType: (_ keyboardType: UIKeyboardType) -> ZFC_TextViewChainedCreater {
-        
-        return { keyboardType in
-            
-            self.chainedTextView.keyboardType = keyboardType
-            return self
-        }
-    }
-    
-    public var layerCornerRadius: (_ cornerRadius: CGFloat) -> ZFC_TextViewChainedCreater {
-        
-        return { cornerRadius in
-            
-            self.chainedTextView.layer.cornerRadius = cornerRadius
-            self.chainedTextView.clipsToBounds = true
-            return self
-        }
-    }
-    
-
-    public var layerBorderWidthAndBorderColor: (_ borderWidth: CGFloat, _ borderColor: UIColor) -> ZFC_TextViewChainedCreater {
-        
-        return { (borderWidth,borderColor) in
-            
-            self.chainedTextView.layer.borderWidth = borderWidth;
-            self.chainedTextView.layer.borderColor = borderColor.cgColor;
-            return self
-        }
-    }
-    
-    public func end() {}
-    
 }
 
 
@@ -170,7 +137,7 @@ extension UITextView {
             let size = CGSize(width: bounds.size.width, height: CGFloat.greatestFiniteMagnitude)
             let labelSize = (placeholder as NSString).boundingRect(with: size, options: .usesLineFragmentOrigin, attributes: [ NSAttributedStringKey.font: self.placeholderLabel.font], context: nil)
           
-            let label = UILabel.cc.zfc_labelChainedCreater(chainedCreaterBlock: { (creater) in
+            let label = UILabel.cc.zfc_labelChainedCreater { (creater) in
                 creater.frame(CGRect(x: 4, y: 5, width: labelSize.width, height: labelSize.height))
                     .font(self.font ?? UIFont.systemFont(ofSize: 15))
                     .textColor(UIColor.lightGray)
@@ -178,8 +145,7 @@ extension UITextView {
                     .numberOfLines(0)
                     .text(self.placeholder)
                     .addIntoView(self)
-                    .end()
-            })
+            }
             
             self.placeholderLabel = label
             self.placeholderLabel.isHidden = false
@@ -201,7 +167,7 @@ extension UITextView {
 extension ChainedCreater where Base: UITextView {
     
     @discardableResult
-    public static func zfc_textViewChainedCreater(chainedCreaterBlock: @escaping(_ creater: ZFC_TextViewChainedCreater) -> ()) -> UITextView {
+    public static func zfc_textViewChainedCreater(_ chainedCreaterBlock: (_ creater: ZFC_TextViewChainedCreater) -> ()) -> UITextView {
         
         let chainedCreater = ZFC_TextViewChainedCreater()
         chainedCreaterBlock(chainedCreater)
