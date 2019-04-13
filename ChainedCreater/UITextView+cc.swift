@@ -59,6 +59,20 @@ public final class ZFC_TextViewChainedCreater {
     }
     
     @discardableResult
+    public func textColor(_ textColor: UIColor) -> ZFC_TextViewChainedCreater {
+        
+        self.chainedTextView.textColor = textColor
+        return self
+    }
+    
+    @discardableResult
+    public func textAlignment(_ textAlignment: NSTextAlignment) -> ZFC_TextViewChainedCreater {
+        
+        self.chainedTextView.textAlignment = textAlignment
+        return self
+    }
+    
+    @discardableResult
     public func placeholder(_ placeholder: String) -> ZFC_TextViewChainedCreater {
 
         self.chainedTextView.placeholder = placeholder

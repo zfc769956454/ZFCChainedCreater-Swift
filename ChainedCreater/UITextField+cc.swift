@@ -63,6 +63,21 @@ public final class ZFC_TextFieldChainedCreater {
     }
     
     @discardableResult
+    public func textColor(_ textColor: UIColor) -> ZFC_TextFieldChainedCreater {
+        
+        self.chainedTextField.textColor = textColor
+        return self
+    }
+    
+    @discardableResult
+    public func textAlignment(_ textAlignment: NSTextAlignment) -> ZFC_TextFieldChainedCreater {
+        
+        self.chainedTextField.textAlignment = textAlignment
+        return self
+    }
+    
+    
+    @discardableResult
     public func borderStyle(_ borderStyle: UITextField.BorderStyle) -> ZFC_TextFieldChainedCreater {
         
         self.chainedTextField.borderStyle = borderStyle
