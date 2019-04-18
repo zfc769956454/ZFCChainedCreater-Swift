@@ -170,8 +170,8 @@ extension UITextView {
     
     @objc func textDidChange() {
         
-        let isHidden = self.text.map { $0.count > 0 } ?? false
-        self.placeholderLabel.isHidden = isHidden
+        let isHidden = self.text.map { $0.count > 0 }
+        self.placeholderLabel.isHidden = isHidden ?? false
     }
 
 }
