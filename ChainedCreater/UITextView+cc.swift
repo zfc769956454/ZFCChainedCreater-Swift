@@ -73,6 +73,14 @@ public final class ZFC_TextViewChainedCreater {
     }
     
     @discardableResult
+    public func contentInset(_ contentInset: UIEdgeInsets) -> ZFC_TextViewChainedCreater {
+        
+        self.chainedTextView.contentInset = contentInset
+        return self
+    }
+    
+
+    @discardableResult
     public func placeholder(_ placeholder: String) -> ZFC_TextViewChainedCreater {
 
         self.chainedTextView.placeholder = placeholder
@@ -85,6 +93,21 @@ public final class ZFC_TextViewChainedCreater {
         assert(self.chainedTextView.placeholder.count > 0, "请先设置placeholder属性")
         
         self.chainedTextView.placeholderColor = placeholderColor
+        return self
+    }
+    
+    @discardableResult
+    public func placeholderLeftPadding(_ leftPadding: CGFloat) -> ZFC_TextViewChainedCreater {
+        
+        self.chainedTextView.leftPadding = leftPadding
+        
+        return self
+    }
+    
+    @discardableResult
+    public func placeholderTopPadding(_ topPadding: CGFloat) -> ZFC_TextViewChainedCreater {
+
+        self.chainedTextView.topPadding = topPadding
         return self
     }
     
@@ -117,12 +140,33 @@ public final class ZFC_TextViewChainedCreater {
 extension UITextView {
 
     private struct AssociatedKeys {
+        static var leftPaddingKey      = "leftPaddingKey"
+        static var topPaddingKey       = "topPaddingKey"
         static var placeholderLabelKey = "placeholderLabelKey"
         static var placeholdColorKey   = "placeholdColorKey"
         static var placeholderKey      = "placeholderKey"
     }
     
-    private var placeholderLabel: UILabel  {
+    
+    fileprivate var leftPadding: CGFloat  {
+        set {
+            objc_setAssociatedObject(self, &AssociatedKeys.leftPaddingKey, newValue, objc_AssociationPolicy.OBJC_ASSOCIATION_ASSIGN);
+        }
+        get {
+            return objc_getAssociatedObject(self, &AssociatedKeys.leftPaddingKey) as? CGFloat ?? 4.0
+        }
+    }
+    
+    fileprivate var topPadding: CGFloat  {
+        set {
+            objc_setAssociatedObject(self, &AssociatedKeys.topPaddingKey, newValue, objc_AssociationPolicy.OBJC_ASSOCIATION_ASSIGN);
+        }
+        get {
+            return objc_getAssociatedObject(self, &AssociatedKeys.topPaddingKey) as? CGFloat ?? 5.0
+        }
+    }
+    
+    fileprivate var placeholderLabel: UILabel  {
         set {
             objc_setAssociatedObject(self, &AssociatedKeys.placeholderLabelKey, newValue, objc_AssociationPolicy.OBJC_ASSOCIATION_RETAIN_NONATOMIC);
         }
@@ -131,7 +175,7 @@ extension UITextView {
         }
     }
     
-    public var placeholderColor: UIColor {
+    fileprivate var placeholderColor: UIColor {
         set {
             objc_setAssociatedObject(self, &AssociatedKeys.placeholdColorKey, newValue, objc_AssociationPolicy.OBJC_ASSOCIATION_RETAIN_NONATOMIC);
             self.placeholderLabel.textColor = placeholderColor
@@ -141,6 +185,13 @@ extension UITextView {
         }
     }
     
+    open override func layoutSubviews() {
+        super.layoutSubviews()
+        let size = CGSize(width: bounds.size.width, height: CGFloat.greatestFiniteMagnitude)
+        let labelSize = (placeholder as NSString).boundingRect(with: size, options: .usesLineFragmentOrigin, attributes: [ NSAttributedStringKey.font: self.placeholderLabel.font], context: nil)
+        placeholderLabel.frame = CGRect(x: leftPadding, y: topPadding, width: labelSize.width, height: labelSize.height)
+    }
+    
     public var placeholder: String {
         get {
             return objc_getAssociatedObject(self, &AssociatedKeys.placeholderKey) as? String ?? ""
@@ -148,12 +199,8 @@ extension UITextView {
         set {
             objc_setAssociatedObject(self, &AssociatedKeys.placeholderKey, newValue, objc_AssociationPolicy.OBJC_ASSOCIATION_RETAIN_NONATOMIC);
             
-            let size = CGSize(width: bounds.size.width, height: CGFloat.greatestFiniteMagnitude)
-            let labelSize = (placeholder as NSString).boundingRect(with: size, options: .usesLineFragmentOrigin, attributes: [ NSAttributedStringKey.font: self.placeholderLabel.font], context: nil)
-          
             let label = UILabel.cc.zfc_labelChainedCreater { (creater) in
-                creater.frame(CGRect(x: 4, y: 5, width: labelSize.width, height: labelSize.height))
-                    .font(self.font ?? UIFont.systemFont(ofSize: 15))
+                creater.font(self.font ?? UIFont.systemFont(ofSize: 15))
                     .textColor(UIColor.lightGray)
                     .textAlignment(.left)
                     .numberOfLines(0)
