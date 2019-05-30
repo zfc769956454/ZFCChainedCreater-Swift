@@ -10,12 +10,18 @@ import UIKit
 
 public final class ZFC_TextViewChainedCreater {
     
-    public lazy var chainedTextView: UITextView = {
+    fileprivate lazy var chainedTextView: UITextView = {
         
         let textView = UITextView()
         return textView
-        
     }()
+    
+    @discardableResult
+    public func textViewClass(_ textViewClass: UITextView.Type) -> ZFC_TextViewChainedCreater {
+        
+        chainedTextView = textViewClass.init()
+        return self
+    }
     
     @discardableResult
     public func addIntoView(_ superView: UIView) -> ZFC_TextViewChainedCreater {

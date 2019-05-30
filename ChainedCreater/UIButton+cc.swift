@@ -15,12 +15,18 @@ public final class ZFC_ButtonChainedCreater {
     
     private var keepBlock: ZFC_CreaterButtonActionBlock?
     
-    public lazy var chainedButton: UIButton = {
+    fileprivate lazy var chainedButton: UIButton = {
         
         let button = UIButton()
         return button
-        
     }()
+    
+    @discardableResult
+    public func buttonClass(_ buttonClass: UIButton.Type) -> ZFC_ButtonChainedCreater {
+        
+        chainedButton = buttonClass.init()
+        return self
+    }
     
     @discardableResult
     public func addIntoView(_ superView: UIView) -> ZFC_ButtonChainedCreater {

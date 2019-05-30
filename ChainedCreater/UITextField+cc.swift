@@ -10,12 +10,18 @@ import UIKit
 
 public final class ZFC_TextFieldChainedCreater {
     
-    public lazy var chainedTextField: UITextField = {
+    fileprivate lazy var chainedTextField: UITextField = {
         
         let textField = UITextField()
         return textField
-        
     }()
+    
+    @discardableResult
+    public func textFieldClass(_ textFieldClass: UITextField.Type) -> ZFC_TextFieldChainedCreater {
+        
+        chainedTextField = textFieldClass.init()
+        return self
+    }
     
     @discardableResult
     public func addIntoView(_ superView: UIView) -> ZFC_TextFieldChainedCreater {

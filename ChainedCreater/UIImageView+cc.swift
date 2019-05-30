@@ -14,12 +14,18 @@ public final class ZFC_ImageViewChainedCreater {
     
     private var keepBlock: ZFC_CreaterImageViewTapBlock?
     
-    public lazy var chainedImageView: UIImageView = {
+    fileprivate lazy var chainedImageView: UIImageView = {
         
         let imageView = UIImageView()
         return imageView
-        
     }()
+    
+    @discardableResult
+    public func imageViewClass(_ imageViewClass: UIImageView.Type) -> ZFC_ImageViewChainedCreater {
+        
+        chainedImageView = imageViewClass.init()
+        return self
+    }
     
     @discardableResult
     public func addIntoView(_ superView: UIView) -> ZFC_ImageViewChainedCreater {

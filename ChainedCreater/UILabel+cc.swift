@@ -14,12 +14,18 @@ public final class ZFC_LabelChainedCreater {
     
     private var keepBlock: ZFC_CreaterLabelTapBlock?
     
-    public lazy var chainedLabel: UILabel = {
+    fileprivate lazy var chainedLabel: UILabel = {
         
         let label = UILabel()
         return label
-        
     }()
+    
+    @discardableResult
+    public func labelClass(_ labelClass: UILabel.Type) -> ZFC_LabelChainedCreater {
+        
+        chainedLabel = labelClass.init()
+        return self
+    }
     
     @discardableResult
     public func addIntoView(_ superView: UIView) -> ZFC_LabelChainedCreater {
