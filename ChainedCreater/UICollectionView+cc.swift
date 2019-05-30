@@ -149,6 +149,13 @@ public class ZFC_CollectionViewChainedInvoke: NSObject{
     private var collectionElementKindSectionFooterHandle: ((_ collectionView: UICollectionView, _ sectionFooterView: [UICollectionReusableView.Type],_ indexPath: IndexPath) -> UICollectionReusableView)?
     private var didSelectItemAtIndexPathHandle: ((_ collectionView: UICollectionView, _ indexPath: IndexPath) -> ())?
     
+    private var scrollViewDidScrollHandle: ((_ scrollView: UIScrollView) -> ())?
+    private var scrollViewWillBeginDraggingHandle: ((_ scrollView: UIScrollView) -> ())?
+    private var scrollViewWillEndDraggingHandle: ((_ scrollView: UIScrollView, _ velocity: CGPoint, _ targetContentOffset: UnsafeMutablePointer<CGPoint>) -> ())?
+    private var scrollViewDidEndDraggingHandle: ((_ scrollView: UIScrollView, _ decelerate: Bool) -> ())?
+    private var scrollViewWillBeginDeceleratingHandle: ((_ scrollView: UIScrollView) -> ())?
+    private var scrollViewDidEndDeceleratingHandle: ((_ scrollView: UIScrollView) -> ())?
+    
     @discardableResult
     public func zfc_collectionViewConfigure(_ invokeConfig: ZFC_CollectionViewChainedInvokeConfig) -> ZFC_CollectionViewChainedInvoke {
         
@@ -257,6 +264,49 @@ public class ZFC_CollectionViewChainedInvoke: NSObject{
         return self
     }
     
+    
+    @discardableResult
+    public func zfc_scrollViewDidScroll(_ scrollViewDidScrollHandle: @escaping(_ scrollView: UIScrollView) -> () ) -> ZFC_CollectionViewChainedInvoke {
+        
+        self.scrollViewDidScrollHandle = scrollViewDidScrollHandle
+        return self
+    }
+    
+    @discardableResult
+    public func zfc_scrollViewWillBeginDragging(_ scrollViewWillBeginDraggingHandle: @escaping(_ scrollView: UIScrollView) -> () ) -> ZFC_CollectionViewChainedInvoke {
+        
+        self.scrollViewWillBeginDraggingHandle = scrollViewWillBeginDraggingHandle
+        return self
+    }
+    
+    @discardableResult
+    public func zfc_scrollViewWillEndDragging(_ scrollViewWillEndDraggingHandle: @escaping(_ scrollView: UIScrollView, _ velocity: CGPoint, _ targetContentOffset: UnsafeMutablePointer<CGPoint>) -> () ) -> ZFC_CollectionViewChainedInvoke {
+        
+        self.scrollViewWillEndDraggingHandle = scrollViewWillEndDraggingHandle
+        return self
+    }
+    
+    @discardableResult
+    public func zfc_scrollViewDidEndDragging(_ scrollViewDidEndDraggingHandle: @escaping(_ scrollView: UIScrollView, _ decelerate: Bool) -> () ) -> ZFC_CollectionViewChainedInvoke {
+        
+        self.scrollViewDidEndDraggingHandle = scrollViewDidEndDraggingHandle
+        return self
+    }
+    
+    @discardableResult
+    public func zfc_scrollViewWillBeginDecelerating(_ scrollViewWillBeginDeceleratingHandle: @escaping(_ scrollView: UIScrollView) -> () ) -> ZFC_CollectionViewChainedInvoke {
+        
+        self.scrollViewWillBeginDeceleratingHandle = scrollViewWillBeginDeceleratingHandle
+        return self
+    }
+    
+    @discardableResult
+    public func zfc_fc_scrollViewDidEndDecelerating(_ scrollViewDidEndDeceleratingHandle: @escaping(_ scrollView: UIScrollView) -> () ) -> ZFC_CollectionViewChainedInvoke {
+        
+        self.scrollViewDidEndDeceleratingHandle = scrollViewDidEndDeceleratingHandle
+        return self
+    }
+    
 }
 
 
@@ -339,6 +389,37 @@ extension ZFC_CollectionViewChainedInvoke: UICollectionViewDelegate,UICollection
     public func zfc_reloadSections(_ sections: IndexSet) {
         
         self.invokeConfig?.collectionView?.reloadSections(sections)
+    }
+    
+}
+
+
+// MARK: - UIScrollViewDelegate
+extension ZFC_CollectionViewChainedInvoke: UIScrollViewDelegate {
+    
+    public func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        scrollViewDidScrollHandle?(scrollView)
+    }
+    
+    public func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
+        scrollViewWillBeginDraggingHandle?(scrollView)
+    }
+    
+    public func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
+        scrollViewWillEndDraggingHandle?(scrollView, velocity, targetContentOffset)
+    }
+    
+    public func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
+        scrollViewDidEndDraggingHandle?(scrollView, decelerate)
+    }
+    
+    public func scrollViewWillBeginDecelerating(_ scrollView: UIScrollView) {
+        scrollViewWillBeginDeceleratingHandle?(scrollView)
+    }
+    
+    
+    public func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+        scrollViewDidEndDeceleratingHandle?(scrollView)
     }
     
 }
