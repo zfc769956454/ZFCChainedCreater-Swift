@@ -123,7 +123,7 @@ extension ChainedCreater where Base: UICollectionView {
 
 
 /// 链式调用部分
-public struct ZFC_CollectionViewChainedInvokeConfig {
+public class ZFC_CollectionViewChainedInvokeConfig {
     
     public var collectionView: UICollectionView?
     
@@ -137,7 +137,7 @@ public struct ZFC_CollectionViewChainedInvokeConfig {
 
 public class ZFC_CollectionViewChainedInvoke: NSObject{
     
-    private var invokeConfig: ZFC_CollectionViewChainedInvokeConfig?
+    private weak var invokeConfig: ZFC_CollectionViewChainedInvokeConfig?
     
     private var numberOfSectionsInCollectionViewHandle: ((_ collectionView: UICollectionView) -> Int)?
     private var numberOfItemsInSectionHandle: ((_ collectionView: UICollectionView, _ section: Int) -> Int)?
@@ -322,14 +322,14 @@ extension ZFC_CollectionViewChainedInvoke: UICollectionViewDelegate,UICollection
         return numberOfItemsInSectionHandle?(collectionView,section) ?? 0
     }
     
-   
+    
     public func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-       
+        
         guard let invokeConfig = invokeConfig,
             let cellClassArray = invokeConfig.cellClassArray else {
                 return UICollectionViewCell()
         }
-       
+        
         let cell = cellForItemAtIndexPathHandle?(collectionView, cellClassArray, indexPath) ?? UICollectionViewCell()
         
         return cell
@@ -350,12 +350,12 @@ extension ZFC_CollectionViewChainedInvoke: UICollectionViewDelegate,UICollection
     public func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
         
         if kind == UICollectionElementKindSectionHeader {
-
+            
             guard let invokeConfig = invokeConfig ,
                 let sectionHeaderClassArray = invokeConfig.sectionHeaderClassArray else {
                     return UICollectionReusableView()
             }
-          
+            
             let sectionHeaderView = collectionElementKindSectionHeaderHandle?(collectionView, sectionHeaderClassArray, indexPath) ?? UICollectionReusableView()
             
             return sectionHeaderView
@@ -374,7 +374,7 @@ extension ZFC_CollectionViewChainedInvoke: UICollectionViewDelegate,UICollection
         
         didSelectItemAtIndexPathHandle?(collectionView,indexPath)
     }
-  
+    
     
     public func zfc_reloadData() {
         
@@ -382,7 +382,7 @@ extension ZFC_CollectionViewChainedInvoke: UICollectionViewDelegate,UICollection
     }
     
     public func zfc_reloadItems(at indexPaths: [IndexPath]) {
-
+        
         self.invokeConfig?.collectionView?.reloadItems(at: indexPaths)
     }
     
@@ -450,4 +450,5 @@ extension UICollectionView {
     }
     
 }
+
 

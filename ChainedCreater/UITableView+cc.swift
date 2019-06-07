@@ -56,7 +56,7 @@ public final class ZFC_TableViewChainedCreater {
         
         return self
     }
-  
+    
     @discardableResult
     public func separatorInset(_ separatorInset: UIEdgeInsets) -> ZFC_TableViewChainedCreater {
         
@@ -129,7 +129,7 @@ public final class ZFC_TableViewChainedCreater {
         
         return self
     }
-
+    
 }
 
 
@@ -148,8 +148,8 @@ extension ChainedCreater where Base: UITableView {
 
 
 /// 链式调用部分
-public struct ZFC_TableViewChainedInvokeConfig {
-
+public class ZFC_TableViewChainedInvokeConfig {
+    
     public var tableView: UITableView?
     public var isCanDelete = false
     
@@ -158,14 +158,15 @@ public struct ZFC_TableViewChainedInvokeConfig {
     public var sectionFooterClassArray: [UITableViewHeaderFooterView.Type]?
     
     public init() {}
-
+    
+    
 }
 
 
 public class ZFC_TableViewChainedInvoke: NSObject{
     
-    private var invokeConfig: ZFC_TableViewChainedInvokeConfig?
-
+    private weak var invokeConfig: ZFC_TableViewChainedInvokeConfig?
+    
     private var numberOfSectionsInTableViewHandle: ((_ tableView: UITableView) -> Int)?
     private var numberOfRowsInSectionHandle: ((_ tableView: UITableView, _ section: Int) -> Int)?
     private var cellForRowAtIndexPathHandle: ((_ tableView: UITableView, _ cellArray: [UITableViewCell.Type], _ indexPath: IndexPath) -> UITableViewCell)?
@@ -213,6 +214,7 @@ public class ZFC_TableViewChainedInvoke: NSObject{
         return self
         
     }
+    
     
     @discardableResult
     public func zfc_numberOfSectionsInTableView(_ numberOfSectionsInTableViewHandle: @escaping(_ tableView: UITableView) -> Int ) -> ZFC_TableViewChainedInvoke {
@@ -278,7 +280,7 @@ public class ZFC_TableViewChainedInvoke: NSObject{
     
     @discardableResult
     public func zfc_viewForFooterInSection(_ viewForFooterInSectionHandle: @escaping(_ tableView: UITableView, _ footerView: [UITableViewHeaderFooterView.Type],_ section: Int) -> UITableViewHeaderFooterView ) -> ZFC_TableViewChainedInvoke {
-    
+        
         assert((self.invokeConfig?.sectionFooterClassArray ?? []).count > 0, "请传入一个段尾的类对象")
         
         self.viewForFooterInSectionHandle = viewForFooterInSectionHandle
@@ -351,15 +353,15 @@ public class ZFC_TableViewChainedInvoke: NSObject{
 
 // MARK: - UITableViewDataSource,UITableViewDelegate
 extension ZFC_TableViewChainedInvoke: UITableViewDataSource,UITableViewDelegate {
-
+    
     public func numberOfSections(in tableView: UITableView) -> Int {
         
         return numberOfSectionsInTableViewHandle?(tableView) ?? 0
-  
+        
     }
     
     public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-      
+        
         return numberOfRowsInSectionHandle?(tableView, section) ?? 0
         
     }
@@ -374,11 +376,11 @@ extension ZFC_TableViewChainedInvoke: UITableViewDataSource,UITableViewDelegate 
         
         guard let invokeConfig = invokeConfig,
             let cellClassArray = invokeConfig.cellClassArray else {
-            return UITableViewCell()
+                return UITableViewCell()
         }
         
         let cell = cellForRowAtIndexPathHandle?(tableView, cellClassArray, indexPath) ?? UITableViewCell()
-
+        
         return cell
     }
     
@@ -394,7 +396,7 @@ extension ZFC_TableViewChainedInvoke: UITableViewDataSource,UITableViewDelegate 
             let sectionHeaderClassArray = invokeConfig.sectionHeaderClassArray else {
                 return UITableViewHeaderFooterView()
         }
-       
+        
         let sectionHeaderView = viewForHeaderInSectionHandle?(tableView,sectionHeaderClassArray,section)
         
         return sectionHeaderView
@@ -441,12 +443,12 @@ extension ZFC_TableViewChainedInvoke: UITableViewDataSource,UITableViewDelegate 
     public func zfc_reloadRows(at indexPaths: [IndexPath], with animation: UITableView.RowAnimation) {
         
         self.invokeConfig?.tableView?.reloadRows(at: indexPaths, with: animation)
-       
+        
     }
     
     public func zfc_reloadSections(_ sections: IndexSet, with animation: UITableView.RowAnimation) {
         
-         self.invokeConfig?.tableView?.reloadSections(sections, with: animation)
+        self.invokeConfig?.tableView?.reloadSections(sections, with: animation)
     }
 }
 
@@ -482,7 +484,7 @@ extension ZFC_TableViewChainedInvoke: UIScrollViewDelegate {
 
 
 extension UITableView {
-
+    
     private struct AssociatedKeys {
         static var chainedInvokerKey = "chainedInvokerKey"
     }
@@ -495,17 +497,18 @@ extension UITableView {
             return objc_getAssociatedObject(self, &AssociatedKeys.chainedInvokerKey) as! ZFC_TableViewChainedInvoke
         }
     }
-
+    
     public func zfc_configTableView(configure: (_ chainedInvoke: ZFC_TableViewChainedInvoke) -> ()) {
-
+        
         let chainedInvoke = ZFC_TableViewChainedInvoke()
-
+        
         self.chainedInvoker = chainedInvoke
-
+        
         configure(chainedInvoke)
-
+        
     }
 }
+
 
 
 
