@@ -1,7 +1,7 @@
 
 Pod::Spec.new do |s|
 s.name = 'ZFCChainedCreater-Swift'
-s.version = '1.2.0'
+s.version = '1.2.1'
 s.license = { :type => "MIT", :file => "LICENSE" }
 s.summary = '这是一个将UI的创建转成链式调用，包含UIView、UILabel、UIImageView、UIButton、UITextField、UITextView、UITableView、UICollectionView这些常用控件的创建'
 
